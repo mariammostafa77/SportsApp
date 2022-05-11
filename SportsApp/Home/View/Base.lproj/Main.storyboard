@@ -1,28 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gKQ-w4-ovh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iN6-fJ-LtJ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-129" y="611"/>
-        </scene>
         <!--Favorite-->
         <scene sceneID="fuJ-up-2aF">
             <objects>
@@ -37,7 +22,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLN-6F-PYD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="264" y="139"/>
+            <point key="canvasLocation" x="341" y="163"/>
         </scene>
         <!--All Sports-->
         <scene sceneID="0oS-d4-V1a">
@@ -66,7 +51,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-11-gW6">
-                                                    <rect key="frame" x="-2" y="-1.5" width="200" height="199"/>
+                                                    <rect key="frame" x="-2" y="-1.5" width="200" height="199.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="200" id="1hm-Nx-JgQ"/>
                                                         <constraint firstAttribute="width" constant="200" id="DTQ-Z9-ojL"/>
@@ -118,7 +103,74 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZRp-gb-qLD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="813.04347826086962" y="-528.34821428571422"/>
+            <point key="canvasLocation" x="1083" y="-508"/>
+        </scene>
+        <!--Leagues Table View Controller-->
+        <scene sceneID="loJ-wU-rGG">
+            <objects>
+                <tableViewController id="iN6-fJ-LtJ" customClass="LeaguesTableViewController" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="PpA-yB-uvr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="122" id="JXC-f5-RQL" customClass="LeaguesTableViewCell" customModule="SportsApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="122"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JXC-f5-RQL" id="Yb1-jM-8kI">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="122"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="favourite.png" translatesAutoresizingMaskIntoConstraints="NO" id="4nm-Om-EE4">
+                                            <rect key="frame" x="20" y="36" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="biV-F3-N1I"/>
+                                                <constraint firstAttribute="height" constant="50" id="z0p-cs-92L"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BUNDESLIGA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHI-3Q-Xae">
+                                            <rect key="frame" x="75" y="50.5" width="276" height="21.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPu-Nr-OZD">
+                                            <rect key="frame" x="359" y="46" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="gnH-sz-9fG"/>
+                                                <constraint firstAttribute="height" constant="30" id="nHV-70-ccq"/>
+                                            </constraints>
+                                            <state key="normal" title="Button" image="youtube.png"/>
+                                            <connections>
+                                                <action selector="leagueVideoBtn:" destination="JXC-f5-RQL" eventType="touchUpInside" id="Yea-0d-OXW"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="4nm-Om-EE4" firstAttribute="centerY" secondItem="Yb1-jM-8kI" secondAttribute="centerY" id="0Ua-b9-Tjn"/>
+                                        <constraint firstItem="CHI-3Q-Xae" firstAttribute="leading" secondItem="4nm-Om-EE4" secondAttribute="trailing" constant="5" id="9XR-eK-MY8"/>
+                                        <constraint firstItem="iPu-Nr-OZD" firstAttribute="centerY" secondItem="Yb1-jM-8kI" secondAttribute="centerY" id="IQ2-Uf-HsD"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="iPu-Nr-OZD" secondAttribute="trailing" constant="5" id="KoP-d9-eQZ"/>
+                                        <constraint firstItem="4nm-Om-EE4" firstAttribute="leading" secondItem="Yb1-jM-8kI" secondAttribute="leadingMargin" id="WwQ-Xl-jw4"/>
+                                        <constraint firstItem="CHI-3Q-Xae" firstAttribute="centerY" secondItem="Yb1-jM-8kI" secondAttribute="centerY" id="cLZ-qc-CDA"/>
+                                        <constraint firstItem="iPu-Nr-OZD" firstAttribute="leading" secondItem="CHI-3Q-Xae" secondAttribute="trailing" constant="8" symbolic="YES" id="n2c-4I-ktJ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="leagueImg" destination="4nm-Om-EE4" id="gH4-e0-Ovl"/>
+                                    <outlet property="leagueName" destination="CHI-3Q-Xae" id="wY7-fg-TTN"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="iN6-fJ-LtJ" id="XL3-AV-mEr"/>
+                            <outlet property="delegate" destination="iN6-fJ-LtJ" id="yWu-cI-tYv"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0bM-tj-wup" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1786.9565217391305" y="-508.25892857142856"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hCo-ZY-Acl">
@@ -155,10 +207,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DkQ-1I-1i2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="146" y="-518"/>
+            <point key="canvasLocation" x="342" y="-508"/>
         </scene>
     </scenes>
     <resources>
-        <image name="pencil.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="favourite.png" width="384" height="384"/>
+        <image name="pencil.circle.fill" catalog="system" width="64" height="62"/>
+        <image name="youtube.png" width="368.6400146484375" height="368.6400146484375"/>
     </resources>
 </document>
