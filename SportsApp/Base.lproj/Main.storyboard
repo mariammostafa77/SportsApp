@@ -1,24 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gKQ-w4-ovh">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-129" y="611"/>
+        </scene>
+        <!--Favorite-->
+        <scene sceneID="fuJ-up-2aF">
+            <objects>
+                <viewController id="WeE-RR-ytJ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wPg-aS-MRk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="TBF-qF-wCG"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Favorite" id="CPy-Bs-FAb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qLN-6F-PYD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="264" y="139"/>
+        </scene>
+        <!--All Sports-->
+        <scene sceneID="0oS-d4-V1a">
+            <objects>
+                <viewController id="0uB-bG-UTk" customClass="AllSportsViewController" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZJ0-Fb-Jbt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tDq-Zb-Z4m">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="A8a-Vv-xVC">
+                                    <size key="itemSize" width="200" height="200"/>
+                                    <size key="estimatedItemSize" width="200" height="200"/>
+                                    <size key="headerReferenceSize" width="5" height="5"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="2" minY="2" maxX="2" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="mYe-si-xlC" customClass="AllSportsCollectionViewCell" customModule="SportsApp" customModuleProvider="target">
+                                        <rect key="frame" x="2" y="7" width="200" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mdt-OF-RVI">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-11-gW6">
+                                                    <rect key="frame" x="-2" y="-1.5" width="200" height="199"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="200" id="1hm-Nx-JgQ"/>
+                                                        <constraint firstAttribute="width" constant="200" id="DTQ-Z9-ojL"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sport" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJt-yg-sIA">
+                                                    <rect key="frame" x="79" y="19" width="43" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="cJt-yg-sIA" firstAttribute="leading" secondItem="mdt-OF-RVI" secondAttribute="leading" constant="79" id="Cvl-4j-BdU"/>
+                                                <constraint firstItem="cJt-yg-sIA" firstAttribute="top" secondItem="mdt-OF-RVI" secondAttribute="top" constant="19" id="XuN-KO-T35"/>
+                                                <constraint firstAttribute="bottom" secondItem="WTT-11-gW6" secondAttribute="bottom" constant="2" id="fTH-3g-CrH"/>
+                                                <constraint firstAttribute="trailing" secondItem="WTT-11-gW6" secondAttribute="trailing" constant="2" id="nVQ-Wd-Fck"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="sportImage" destination="WTT-11-gW6" id="zPh-lk-R4b"/>
+                                            <outlet property="sportNameLabel" destination="cJt-yg-sIA" id="m1S-Be-oXn"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="RBu-zz-CGU">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="0uB-bG-UTk" id="tvS-VO-9gS"/>
+                                    <outlet property="delegate" destination="0uB-bG-UTk" id="VIq-lq-Mof"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Txo-Ge-4Tp" firstAttribute="trailing" secondItem="tDq-Zb-Z4m" secondAttribute="trailing" id="4ru-0w-YdH"/>
+                            <constraint firstItem="Txo-Ge-4Tp" firstAttribute="bottom" secondItem="tDq-Zb-Z4m" secondAttribute="bottom" id="B3r-9J-X2n"/>
+                            <constraint firstItem="tDq-Zb-Z4m" firstAttribute="leading" secondItem="Txo-Ge-4Tp" secondAttribute="leading" id="luV-aJ-zqV"/>
+                            <constraint firstItem="tDq-Zb-Z4m" firstAttribute="top" secondItem="Txo-Ge-4Tp" secondAttribute="top" id="yNx-wO-5Ra"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Txo-Ge-4Tp"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="All Sports" id="Wdh-az-teN"/>
+                    <connections>
+                        <outlet property="allSportsCollectionView" destination="tDq-Zb-Z4m" id="oph-Dg-iuB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZRp-gb-qLD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="813.04347826086962" y="-528.34821428571422"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="hCo-ZY-Acl">
+            <objects>
+                <tabBarController id="gKQ-w4-ovh" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="48K-Jg-dsX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="SsC-t2-IYa" kind="relationship" relationship="viewControllers" id="ufU-V4-roI"/>
+                        <segue destination="WeE-RR-ytJ" kind="relationship" relationship="viewControllers" id="J4O-9N-QuK"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7K1-hi-5Vc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-427" y="-170"/>
+        </scene>
+        <!--All Sports-->
+        <scene sceneID="CbG-mG-nDM">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SsC-t2-IYa" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="All Sports" id="DBj-oq-HCV"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yfE-h6-phW">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0uB-bG-UTk" kind="relationship" relationship="rootViewController" id="7Ks-1s-YbZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DkQ-1I-1i2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="146" y="-518"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pencil.circle.fill" catalog="system" width="64" height="60"/>
+    </resources>
 </document>
