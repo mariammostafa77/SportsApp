@@ -8,48 +8,40 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 protocol SportsService{
   static func fetchSportResult(complitionHandler : @escaping (SportResult?) -> Void)
-    func fetchSportResult1(endPoint: String)
+    func getAllSportsFromNetwork(endPoint: String, complitionHandler: @escaping ([SportResultNeeded]?) -> Void)
 }
+
 class SportsNetworkService : SportsService{
+
+    fileprivate var baseUrl = "https://www.thesportsdb.com/api/v1/json/2/"
+    var myData:[SportResultNeeded] = []
     
-    
-    fileprivate var baseUrl = ""
-   // typealias sportsCallBack = ( test: [SportItem]?, staus: Bool, message: String)
-   // typealias sportsCallBack = (_ sportsData: [SportItem]? )
-    init(baseUrl: String){
-        self.baseUrl = baseUrl
-    }
-    func fetchSportResult1(endPoint: String){
-      //  AF.reqest(self.baseUrl + endPoint, method: .get, Parameters: nil, encoding: URLEncoding.default, headers: nil, interceptor: nil).response(
+    func getAllSportsFromNetwork(endPoint: String,complitionHandler: @escaping ([SportResultNeeded]?) -> Void ) {
         
         AF.request(self.baseUrl + endPoint, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil, interceptor: nil).responseJSON { (responseData) in
             switch responseData.result{
             case .success:
-                print(responseData.result)
+                let myResult = try? JSON(data: responseData.data!)
+                let resultArray = myResult!["sports"]
+                for i in resultArray.arrayValue {
+                    let sportResultNeeded: SportResultNeeded = SportResultNeeded(sportName: i["strSport"].stringValue, sportImage: i["strSportThumb"].stringValue)
+                    self.myData.append(sportResultNeeded)
+                }
+                complitionHandler(self.myData)
+                print(" name:   \(self.myData[3].sportName)")
+                print(" image: \(self.myData[3].sportImage)")
             case .failure:
+                print("Can not get data")
+                complitionHandler(nil)
                 break
             }
-           // print("Got Response.... \(responseData)")
-            /*
-            guard let data = responseData.data else { return}
-            do{
-                let sportsData = try JSONDecoder().decode(SportResult.self, from: data)
-                print("Sport Data \(sportsData)")
-            } catch{
-                print("Error Decoding.....\(error)")
-            }
-            */
         }
-        
-        
-        
+       
     }
-    
-    
-    
     
     static func fetchSportResult(complitionHandler: @escaping (SportResult?) -> Void) {
         let url = URL(string: "https://www.thesportsdb.com/api/v1/json/2/all_sports.php")
@@ -73,5 +65,11 @@ class SportsNetworkService : SportsService{
         task.resume()
     }
  
+    
+    
+    
+    
+    
+    
 }
 

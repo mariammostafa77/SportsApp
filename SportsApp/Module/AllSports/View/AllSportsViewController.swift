@@ -7,23 +7,15 @@
 //
 
 import UIKit
+import Kingfisher
 
 class AllSportsViewController: UIViewController {
-
-    struct ResultView {
-        var sportName: String = ""
-        var sportImage: String = ""
-    }
     
     @IBOutlet weak var allSportsCollectionView: UICollectionView!
     
     let indicator = UIActivityIndicatorView(style: .large)
     var presenter : AllSportsPresenter!
-    var sportArray:[ResultView] = []
-    
-    
-    var test = [SportItem]()
-    
+    var sportArray:[SportResultNeeded] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,37 +23,37 @@ class AllSportsViewController: UIViewController {
         allSportsCollectionView.dataSource = self
         allSportsCollectionView.delegate = self
         
-        
-        let service = SportsNetworkService(baseUrl: "https://www.thesportsdb.com/api/v1/json/2")
-        service.fetchSportResult1(endPoint: "/all_sports.php")
-        
         indicator.center = self.view.center
         self.view.addSubview(indicator)
         indicator.startAnimating()
                
-        presenter = AllSportsPresenter(networkService: SportsNetworkService(baseUrl: "https://www.thesportsdb.com/api/v1/json/2"))
+        presenter = AllSportsPresenter(networkService: SportsNetworkService())
         presenter.attachView(view: self)
-        presenter.getSports()
+        presenter.getSports1()
     }
 }
 
-
 /////////////// For Collection view method
 extension AllSportsViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return sportArray.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = allSportsCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! AllSportsCollectionViewCell
-       // cell.sportNameLabel.text = presenter.result[indexPath.row].strSport
+        let url = URL(string: sportArray[indexPath.row].sportImage)
+     
         if(sportArray.count != 0){
             cell.sportNameLabel.text = sportArray[indexPath.row].sportName
-//            let con = test[indexPath.row]
-  //          cell.sportNameLabel.text = con.strSport ?? ""
+            cell.sportImage.kf.setImage(with: url,placeholder: UIImage(named: "sports.jpeg"))
         }
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = UIColor.gray.cgColor
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = (collectionView.frame.size.width-10)/2
+        return CGSize(width: size, height: 200)
     }
 }
 
@@ -70,14 +62,14 @@ extension AllSportsViewController : AllSportsProtocol {
     func stopAnimating() {
         indicator.stopAnimating()
     }
-    func renderCollectionView(result: [SportItem]) {
-        
-        for i in 0...result.count-1{
-            let resultView: ResultView = ResultView(sportName: result[i].strSport ?? "", sportImage: result[i].strSportThumb ?? "")
-            sportArray.append(resultView)
-        }
-        self.allSportsCollectionView.reloadData()
-        print(sportArray[3] )
+    
+    func renderCollectionView() {
+       sportArray = presenter.myFetchedData.map({ (item) -> SportResultNeeded in
+        let res:SportResultNeeded = SportResultNeeded(sportName:item.sportName ,sportImage:item.sportImage )
+            return res
+        })
+       self.allSportsCollectionView.reloadData()
+        //print(sportArray[3] )
     }
 }
 

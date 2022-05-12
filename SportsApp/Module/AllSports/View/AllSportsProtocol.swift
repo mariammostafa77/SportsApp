@@ -10,5 +10,5 @@ import Foundation
 
 protocol AllSportsProtocol : AnyObject{
     func stopAnimating()
-    func renderCollectionView(result: [SportItem])
+    func renderCollectionView()
 }
