@@ -21,17 +21,25 @@ class AllSportsViewController: UIViewController {
     var presenter : AllSportsPresenter!
     var sportArray:[ResultView] = []
     
+    
+    var test = [SportItem]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         allSportsCollectionView.dataSource = self
         allSportsCollectionView.delegate = self
         
+        
+        let service = SportsNetworkService(baseUrl: "https://www.thesportsdb.com/api/v1/json/2")
+        service.fetchSportResult1(endPoint: "/all_sports.php")
+        
         indicator.center = self.view.center
         self.view.addSubview(indicator)
         indicator.startAnimating()
                
-        presenter = AllSportsPresenter(networkService: SportsNetworkService())
+        presenter = AllSportsPresenter(networkService: SportsNetworkService(baseUrl: "https://www.thesportsdb.com/api/v1/json/2"))
         presenter.attachView(view: self)
         presenter.getSports()
     }
@@ -50,6 +58,8 @@ extension AllSportsViewController : UICollectionViewDelegate, UICollectionViewDa
        // cell.sportNameLabel.text = presenter.result[indexPath.row].strSport
         if(sportArray.count != 0){
             cell.sportNameLabel.text = sportArray[indexPath.row].sportName
+//            let con = test[indexPath.row]
+  //          cell.sportNameLabel.text = con.strSport ?? ""
         }
         return cell
     }

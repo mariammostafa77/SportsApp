@@ -24,7 +24,6 @@ class AllSportsPresenter{
         SportsNetworkService.fetchSportResult {[weak self] (result1) in
             print(result1?.sports[2].strSport ?? "")
             self?.result = result1?.sports
-            
             DispatchQueue.main.async {
                 self?.view.stopAnimating()
                 self?.view.renderCollectionView(result: self!.result)
