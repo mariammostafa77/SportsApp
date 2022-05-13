@@ -8,6 +8,8 @@
 
 import UIKit
 
+import Kingfisher
+
 protocol LeaguesTableViewProtocol : AnyObject{
     func stopAnimating()
     func renderTableView()
@@ -64,6 +66,10 @@ class LeaguesTableViewController: UITableViewController {
         
         cell.leagueName.text=leaguesArr[indexPath.row].name
 
+        let url = URL(string: leaguesArr[indexPath.row].image)
+        cell.leagueImg.kf.setImage(with: url)
+        
+        
         return cell
     }
     

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import Kingfisher
+import Kingfisher
 
 class AllSportsViewController: UIViewController {
     
@@ -45,7 +45,7 @@ extension AllSportsViewController : UICollectionViewDelegate, UICollectionViewDa
      
         if(sportArray.count != 0){
             cell.sportNameLabel.text = sportArray[indexPath.row].sportName
-            //cell.sportImage.kf.setImage(with: url,placeholder: UIImage(named: "sports.jpeg"))
+            cell.sportImage.kf.setImage(with: url,placeholder: UIImage(named: "sports.png"))
         }
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.gray.cgColor

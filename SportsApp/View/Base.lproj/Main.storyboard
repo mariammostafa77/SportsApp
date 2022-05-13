@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iN6-fJ-LtJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gKQ-w4-ovh">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,8 +17,8 @@
                     <view key="view" contentMode="scaleToFill" id="wPg-aS-MRk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="TBF-qF-wCG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Favorite" id="CPy-Bs-FAb"/>
                 </viewController>
@@ -34,7 +36,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tDq-Zb-Z4m">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="A8a-Vv-xVC">
                                     <size key="itemSize" width="200" height="200"/>
                                     <size key="estimatedItemSize" width="200" height="200"/>
@@ -51,7 +53,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-11-gW6">
-                                                    <rect key="frame" x="-2" y="-1.5" width="200" height="199.5"/>
+                                                    <rect key="frame" x="-2" y="-1.5" width="200" height="199"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="200" id="1hm-Nx-JgQ"/>
                                                         <constraint firstAttribute="width" constant="200" id="DTQ-Z9-ojL"/>
@@ -87,14 +89,14 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Txo-Ge-4Tp"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Txo-Ge-4Tp" firstAttribute="trailing" secondItem="tDq-Zb-Z4m" secondAttribute="trailing" id="4ru-0w-YdH"/>
                             <constraint firstItem="Txo-Ge-4Tp" firstAttribute="bottom" secondItem="tDq-Zb-Z4m" secondAttribute="bottom" id="B3r-9J-X2n"/>
                             <constraint firstItem="tDq-Zb-Z4m" firstAttribute="leading" secondItem="Txo-Ge-4Tp" secondAttribute="leading" id="luV-aJ-zqV"/>
                             <constraint firstItem="tDq-Zb-Z4m" firstAttribute="top" secondItem="Txo-Ge-4Tp" secondAttribute="top" id="yNx-wO-5Ra"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Txo-Ge-4Tp"/>
                     </view>
                     <navigationItem key="navigationItem" title="All Sports" id="Wdh-az-teN"/>
                     <connections>
@@ -112,7 +114,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="PpA-yB-uvr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="122" id="JXC-f5-RQL" customClass="LeaguesTableViewCell" customModule="SportsApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="122"/>
@@ -212,7 +214,10 @@
     </scenes>
     <resources>
         <image name="favourite.png" width="384" height="384"/>
-        <image name="pencil.circle.fill" catalog="system" width="64" height="62"/>
+        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
         <image name="youtube.png" width="368.6400146484375" height="368.6400146484375"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
