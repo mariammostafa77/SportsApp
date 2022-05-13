@@ -8,18 +8,36 @@
 
 import UIKit
 
+protocol LeaguesTableViewProtocol : AnyObject{
+    func stopAnimating()
+    func renderTableView()
+}
+struct ResultView{
+    var name : String = ""
+    var image : String = ""
+    var youtubeLink : String = ""
+}
+
 class LeaguesTableViewController: UITableViewController {
 
-     var leaguesArr:Array<String>=["Mariam","Asmaa","Zeinab"]
+    var leaguesArr:Array<ResultView>=[]
+    let indicator = UIActivityIndicatorView(style: .large)
+    var presenter : LeaguesPresenter!
+    var youtubeLink:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+    
+             indicator.center = self.view.center
+              self.view.addSubview(indicator)
+              indicator.startAnimating()
+              
+              presenter = LeaguesPresenter(NWService: LeaguesNetworkManager())
+              presenter.attachView(view: self)
+              
+        presenter.getItems(endPoint: "Soccer")
     }
 
     // MARK: - Table view data source
@@ -44,7 +62,7 @@ class LeaguesTableViewController: UITableViewController {
         cell.leagueImg.layer.masksToBounds = true
         cell.leagueImg.backgroundColor = .cyan
         
-        cell.leagueName.text="Hello"
+        cell.leagueName.text=leaguesArr[indexPath.row].name
 
         return cell
     }
@@ -52,6 +70,10 @@ class LeaguesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
        }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        youtubeLink=leaguesArr[indexPath.row].youtubeLink
+        
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -98,4 +120,39 @@ class LeaguesTableViewController: UITableViewController {
     }
     */
 
+}
+extension LeaguesTableViewController : LeaguesTableViewProtocol {
+    func stopAnimating() {
+        indicator.stopAnimating()
+    }
+    func renderTableView(){
+        for i in 0...presenter.result.count-1{
+            let resultView: ResultView = ResultView(name: presenter.result[i].name , image: presenter.result[i].image , youtubeLink: presenter.result[i].youtubeLink )
+            leaguesArr.append(resultView)
+        }
+        self.tableView.reloadData()
+    }
+}
+extension LeaguesTableViewController : DisplayVideoProtocol{
+     func displayvideo() {
+        let youtubeId = "SxTYjptEzZs"
+        var youtubeUrl = NSURL(string:"youtube://\(youtubeId)")!
+        if UIApplication.shared.canOpenURL(youtubeUrl as URL){
+            UIApplication.shared.openURL(youtubeUrl as URL)
+        } else{
+                //youtubeUrl = NSURL(string:"https://www.youtube.com/watch?v=\(youtubeId)")!
+            
+            
+            //"https://www.youtube.com/watch?v=pt26kmLhafc"
+            print(youtubeLink)
+            var myUrl=youtubeLink
+            if(myUrl.isEmpty){
+                myUrl="https://www.youtube.com/watch?v=pt26kmLhafc"
+            }
+            youtubeUrl = NSURL(string:myUrl)!
+            UIApplication.shared.openURL(youtubeUrl as URL)
+        }
+    }
+    
+    
 }

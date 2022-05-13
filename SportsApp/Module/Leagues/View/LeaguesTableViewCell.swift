@@ -7,21 +7,13 @@
 //
 
 import UIKit
-
 class LeaguesTableViewCell: UITableViewCell {
 
     @IBOutlet weak var leagueName: UILabel!
     @IBOutlet weak var leagueImg: UIImageView!
     @IBAction func leagueVideoBtn(_ sender: UIButton) {
-        let youtubeId = "SxTYjptEzZs"
-        var youtubeUrl = NSURL(string:"youtube://\(youtubeId)")!
-        if UIApplication.shared.canOpenURL(youtubeUrl as URL){
-            UIApplication.shared.openURL(youtubeUrl as URL)
-        } else{
-                //youtubeUrl = NSURL(string:"https://www.youtube.com/watch?v=\(youtubeId)")!
-            youtubeUrl = NSURL(string:"https://www.youtube.com/watch?v=pt26kmLhafc")!
-            UIApplication.shared.openURL(youtubeUrl as URL)
-        }
+        let tableObj = LeaguesTableViewController()
+        tableObj.displayvideo()
     }
     override func awakeFromNib() {
         super.awakeFromNib()
