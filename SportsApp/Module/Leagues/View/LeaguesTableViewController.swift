@@ -8,7 +8,7 @@
 
 import UIKit
 
-import Kingfisher
+//import Kingfisher
 
 protocol LeaguesTableViewProtocol : AnyObject{
     func stopAnimating()
@@ -26,12 +26,11 @@ class LeaguesTableViewController: UITableViewController {
     let indicator = UIActivityIndicatorView(style: .large)
     var presenter : LeaguesPresenter!
     var youtubeLink:String = ""
+    var sportName:String=""
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-    
              indicator.center = self.view.center
               self.view.addSubview(indicator)
               indicator.startAnimating()
@@ -39,7 +38,12 @@ class LeaguesTableViewController: UITableViewController {
               presenter = LeaguesPresenter(NWService: LeaguesNetworkManager())
               presenter.attachView(view: self)
               
-        presenter.getItems(endPoint: "Soccer")
+        presenter.getItems(endPoint: sportName)
+        
+   
+        
+       
+        
     }
 
     // MARK: - Table view data source
@@ -57,8 +61,6 @@ class LeaguesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LeaguesTableViewCell
-        
-        
        
         cell.leagueImg.layer.cornerRadius = cell.leagueImg.frame.height / 2
         cell.leagueImg.layer.masksToBounds = true
@@ -67,9 +69,10 @@ class LeaguesTableViewController: UITableViewController {
         cell.leagueName.text=leaguesArr[indexPath.row].name
 
         let url = URL(string: leaguesArr[indexPath.row].image)
-        cell.leagueImg.kf.setImage(with: url)
-        
-        
+        //cell.leagueImg.kf.setImage(with: url)
+        //print(leaguesArr[indexPath.row].name)
+        cell.leagueImg.image=UIImage(named: leaguesArr[indexPath.row].image)
+       
         return cell
     }
     
@@ -132,12 +135,20 @@ extension LeaguesTableViewController : LeaguesTableViewProtocol {
         indicator.stopAnimating()
     }
     func renderTableView(){
-        for i in 0...presenter.result.count-1{
-            let resultView: ResultView = ResultView(name: presenter.result[i].name , image: presenter.result[i].image , youtubeLink: presenter.result[i].youtubeLink )
-            leaguesArr.append(resultView)
+        leaguesArr = presenter.result.map({ (item) -> ResultView in
+            let res:ResultView = ResultView(name: item.name, image: item.image, youtubeLink: item.youtubeLink)
+                return res
+            })
+        
+              if leaguesArr.count == 0 {
+               let myRes:ResultView=ResultView(name: "No Data.....", image: "youtube.png", youtubeLink: "")
+               leaguesArr.append(myRes)
+                
+                       }
+              
+           self.tableView.reloadData()
         }
-        self.tableView.reloadData()
-    }
+    
 }
 extension LeaguesTableViewController : DisplayVideoProtocol{
      func displayvideo() {
@@ -146,10 +157,6 @@ extension LeaguesTableViewController : DisplayVideoProtocol{
         if UIApplication.shared.canOpenURL(youtubeUrl as URL){
             UIApplication.shared.openURL(youtubeUrl as URL)
         } else{
-                //youtubeUrl = NSURL(string:"https://www.youtube.com/watch?v=\(youtubeId)")!
-            
-            
-            //"https://www.youtube.com/watch?v=pt26kmLhafc"
             print(youtubeLink)
             var myUrl=youtubeLink
             if(myUrl.isEmpty){

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+//import Kingfisher
 
 class AllSportsViewController: UIViewController {
     
@@ -45,7 +45,7 @@ extension AllSportsViewController : UICollectionViewDelegate, UICollectionViewDa
      
         if(sportArray.count != 0){
             cell.sportNameLabel.text = sportArray[indexPath.row].sportName
-            cell.sportImage.kf.setImage(with: url,placeholder: UIImage(named: "sports.png"))
+            //cell.sportImage.kf.setImage(with: url,placeholder: UIImage(named: "sports.png"))
         }
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.gray.cgColor
@@ -54,6 +54,11 @@ extension AllSportsViewController : UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = (collectionView.frame.size.width-10)/2
         return CGSize(width: size, height: 200)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "leagues") as? LeaguesTableViewController
+        vc?.sportName =  sportArray[indexPath.row].sportName
+        navigationController?.pushViewController(vc!, animated: true)
     }
 }
 

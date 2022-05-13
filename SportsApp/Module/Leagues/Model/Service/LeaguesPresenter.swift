@@ -24,7 +24,7 @@ class LeaguesPresenter {
          let service=LeaguesNetworkManager()
     service.fetchSLeagesResultWithAF(endPoint: endPoint){[weak self] (result1) in
            
-             self?.result = result1!
+             self?.result = result1 ?? []
              DispatchQueue.main.async {
                  self?.view.stopAnimating()
                  self?.view.renderTableView()
