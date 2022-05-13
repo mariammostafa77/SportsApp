@@ -13,9 +13,12 @@ class FavoriteViewController: UIViewController {
     @IBOutlet weak var favoriteTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        /////// For table View
         favoriteTableView.delegate = self
         favoriteTableView.dataSource = self
+        
+        favoriteTableView.separatorStyle = .none
+        favoriteTableView.showsVerticalScrollIndicator = false
        
     }
     
@@ -40,9 +43,17 @@ extension FavoriteViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FavoriteTableViewCell
+        cell.legueNameLabel.text = "Asmaa"
+        
+        cell.favoriteView.layer.cornerRadius = cell.favoriteView.frame.height / 1.5
+        cell.favLegueImageView.layer.cornerRadius = cell.favLegueImageView.frame.height / 1.5
+        cell.favYoutubeImageView.layer.cornerRadius = cell.favYoutubeImageView.frame.height / 1.5
+        
         return cell
     }
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
     
     }
 

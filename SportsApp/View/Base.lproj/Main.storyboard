@@ -157,6 +157,7 @@
                                         <connections>
                                             <outlet property="sportImage" destination="WTT-11-gW6" id="zPh-lk-R4b"/>
                                             <outlet property="sportNameLabel" destination="cJt-yg-sIA" id="m1S-Be-oXn"/>
+                                            <segue destination="iN6-fJ-LtJ" kind="show" id="www-Nf-4F5"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -250,6 +251,7 @@
                             <outlet property="delegate" destination="iN6-fJ-LtJ" id="yWu-cI-tYv"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="qus-XU-LsW"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0bM-tj-wup" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
