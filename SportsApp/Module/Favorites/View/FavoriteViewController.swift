@@ -46,8 +46,9 @@ extension FavoriteViewController : UITableViewDelegate, UITableViewDataSource {
         cell.legueNameLabel.text = "Asmaa"
         
         cell.favoriteView.layer.cornerRadius = cell.favoriteView.frame.height / 1.5
-        cell.favLegueImageView.layer.cornerRadius = cell.favLegueImageView.frame.height / 1.5
-        cell.favYoutubeImageView.layer.cornerRadius = cell.favYoutubeImageView.frame.height / 1.5
+        cell.favLegueImageView.layer.cornerRadius = cell.favLegueImageView.frame.height / 2
+        cell.favYoutubeImageView.layer.cornerRadius = cell.favYoutubeImageView.frame.height / 2
+        cell.favYoutubeImageView.layer.masksToBounds = true
         
         return cell
     }

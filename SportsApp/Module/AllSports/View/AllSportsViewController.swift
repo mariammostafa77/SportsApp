@@ -22,14 +22,19 @@ class AllSportsViewController: UIViewController {
 
         allSportsCollectionView.dataSource = self
         allSportsCollectionView.delegate = self
-        
-        indicator.center = self.view.center
-        self.view.addSubview(indicator)
-        indicator.startAnimating()
+        if NetworkMonitor.shared.isConnected{
+            print("You are Connected....")
+            indicator.center = self.view.center
+            self.view.addSubview(indicator)
+            indicator.startAnimating()
                
-        presenter = AllSportsPresenter(networkService: SportsNetworkService())
-        presenter.attachView(view: self)
-        presenter.getSports1()
+            presenter = AllSportsPresenter(networkService: SportsNetworkService())
+            presenter.attachView(view: self)
+            presenter.getSports1()
+        }
+        else{
+            print("You are not Connected....")
+        }
     }
 }
 
@@ -45,7 +50,7 @@ extension AllSportsViewController : UICollectionViewDelegate, UICollectionViewDa
      
         if(sportArray.count != 0){
             cell.sportNameLabel.text = sportArray[indexPath.row].sportName
-            cell.sportImage.kf.setImage(with: url,placeholder: UIImage(named: "sports.png"))
+            cell.sportImage.kf.setImage(with: url,placeholder: UIImage(named: "sport.jpeg"))
         }
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.gray.cgColor

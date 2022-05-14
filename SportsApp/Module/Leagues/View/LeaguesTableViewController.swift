@@ -76,7 +76,7 @@ class LeaguesTableViewController: UITableViewController {
         
         
         let url = URL(string: leaguesArr[indexPath.row].image)
-        cell.leagueImg.kf.setImage(with: url, placeholder: UIImage(named: "noData.png"), options: nil, progressBlock: nil, completionHandler: nil)
+        cell.leagueImg.kf.setImage(with: url,placeholder: UIImage(named: "noData.png"))
         //print(leaguesArr[indexPath.row].name)
         //cell.leagueImg.image=UIImage(named: leaguesArr[indexPath.row].image)
        
