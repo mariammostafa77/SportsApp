@@ -50,38 +50,7 @@ protocol LeaguesNetworkManagerProtocol
         }
         
         
-        
-        
-        
-        
-        
-    static func fetchResult(complitionHandler : @escaping (LeaguesResult?) -> Void){
-        let url = URL(string: "https://www.thesportsdb.com/api/v1/json/2/search_all_leagues.php?c=England&s=Soccer")
-        guard let newUrl = url else{
-            return
-        }
-        let request = URLRequest(url: newUrl)
-        let session = URLSession(configuration: URLSessionConfiguration.default)
-        
-        let task = session.dataTask(with: request) { (data, response, error) in
-            guard let data = data else{
-                return
-            }
-            do{
-                let result = try JSONDecoder().decode(LeaguesResult.self, from: data)
-                print(result.Leagues[0].strSport ?? "")
-                complitionHandler(result)
-            }catch let error{
-                print("Here")
-                print(error.localizedDescription)
-                complitionHandler(nil)
-            }
-            
-            
-        }
-        task.resume()
-        
-        }
+    
     }
 
 

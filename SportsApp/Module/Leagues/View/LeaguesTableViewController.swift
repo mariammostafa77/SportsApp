@@ -25,7 +25,6 @@ class LeaguesTableViewController: UITableViewController {
     var leaguesArr:Array<ResultView>=[]
     let indicator = UIActivityIndicatorView(style: .large)
     var presenter : LeaguesPresenter!
-    var youtubeLink:String = ""
     var sportName:String=""
     
     override func viewDidLoad() {
@@ -64,12 +63,20 @@ class LeaguesTableViewController: UITableViewController {
        
         cell.leagueImg.layer.cornerRadius = cell.leagueImg.frame.height / 2
         cell.leagueImg.layer.masksToBounds = true
-        cell.leagueImg.backgroundColor = .cyan
+        cell.leagueImg.backgroundColor = .lightGray
         
         cell.leagueName.text=leaguesArr[indexPath.row].name
 
+        cell.youtubeLink=leaguesArr[indexPath.row].youtubeLink
+        
+        if leaguesArr[indexPath.row].name == "No Data Found !!!" {
+            cell.videoBtn.isHidden=true
+        }
+        
+        
+        
         let url = URL(string: leaguesArr[indexPath.row].image)
-        cell.leagueImg.kf.setImage(with: url)
+        cell.leagueImg.kf.setImage(with: url, placeholder: UIImage(named: "noData.png"), options: nil, progressBlock: nil, completionHandler: nil)
         //print(leaguesArr[indexPath.row].name)
         //cell.leagueImg.image=UIImage(named: leaguesArr[indexPath.row].image)
        
@@ -79,10 +86,7 @@ class LeaguesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
        }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        youtubeLink=leaguesArr[indexPath.row].youtubeLink
-        
-    }
+   
 
     /*
     // Override to support conditional editing of the table view.
@@ -141,7 +145,7 @@ extension LeaguesTableViewController : LeaguesTableViewProtocol {
             })
         
               if leaguesArr.count == 0 {
-               let myRes:ResultView=ResultView(name: "No Data.....", image: "youtube.png", youtubeLink: "")
+               let myRes:ResultView=ResultView(name: "No Data Found !!!", image: "youtube.png", youtubeLink: "")
                leaguesArr.append(myRes)
                 
                        }
@@ -150,22 +154,4 @@ extension LeaguesTableViewController : LeaguesTableViewProtocol {
         }
     
 }
-extension LeaguesTableViewController : DisplayVideoProtocol{
-     func displayvideo() {
-        let youtubeId = "SxTYjptEzZs"
-        var youtubeUrl = NSURL(string:"youtube://\(youtubeId)")!
-        if UIApplication.shared.canOpenURL(youtubeUrl as URL){
-            UIApplication.shared.openURL(youtubeUrl as URL)
-        } else{
-            print(youtubeLink)
-            var myUrl=youtubeLink
-            if(myUrl.isEmpty){
-                myUrl="https://www.youtube.com/watch?v=pt26kmLhafc"
-            }
-            youtubeUrl = NSURL(string:myUrl)!
-            UIApplication.shared.openURL(youtubeUrl as URL)
-        }
-    }
-    
-    
-}
+
