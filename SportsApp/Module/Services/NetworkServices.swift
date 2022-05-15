@@ -21,17 +21,91 @@ protocol LeaguesNetworkServiceProtocol
    func fetchSLeagesResultWithAF(endPoint: String, complitionHandler: @escaping ([ResultView]?) -> Void) -> Array<ResultView>
 }
 
-class NetworkServices: AllSportsService, LeaguesNetworkServiceProtocol{
+protocol LeaguesDetailServiceProtocol{
+    func fetchSLeagesDetailsUpcomingResultWithAF(endPoint: String, complitionHandler: @escaping ([LeaguesDetailsItem]?) -> Void)-> Array<LeaguesDetailsItem>
+    func fetchSLeagesDetailsLatestResultWithAF(endPoint: String, complitionHandler: @escaping ([LeaguesDetailsItem]?) -> Void)-> Array<LeaguesDetailsItem>
+}
+
+class NetworkServices: AllSportsService, LeaguesNetworkServiceProtocol,LeaguesDetailServiceProtocol{
+    
     
     
     ////Sports
-    fileprivate var baseUrl = "https://www.thesportsdb.com/api/v1/json/2/"
-    var myData:[SportResultNeeded] = []
-    /////////// Leaugue
-    
-    let baseUrl1="https://www.thesportsdb.com/api/v1/json/2/search_all_leagues.php?s="
+       fileprivate var baseUrl = "https://www.thesportsdb.com/api/v1/json/2/"
+       var myData:[SportResultNeeded] = []
+       /////////// Leaugue
+       
+       let baseUrl1="https://www.thesportsdb.com/api/v1/json/2/search_all_leagues.php?s="
 
-    var myLeaguesData:[ResultView] = []
+       var myLeaguesData:[ResultView] = []
+    
+
+    var leaguesUpcomingResultData:[LeaguesDetailsItem]=[]
+    var leaguesLatestResultData:[LeaguesDetailsItem]=[]
+    
+    let LeaguesDetailsLatestUrl = "https://www.thesportsdb.com/api/v1/json/2/eventsseason.php?id="
+    let LeaguesDetailsUpcomingUrl = "https://www.thesportsdb.com/api/v1/json/2/eventsround.php?id=4328&r=38&s=2021-2022"
+    
+    func fetchSLeagesDetailsLatestResultWithAF(endPoint: String, complitionHandler: @escaping ([LeaguesDetailsItem]?) -> Void) -> Array<LeaguesDetailsItem> {
+        Alamofire.request(LeaguesDetailsLatestUrl + endPoint, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON { (responseData) in
+             switch responseData.result{
+             case .success:
+                 let myResult = try? JSON(data: responseData.data!)
+                 let resultArray = myResult!["events"]
+                do {
+                                       
+                    let strjson = resultArray.arrayValue.description
+                    let data=Data(strjson.utf8)
+                    self.leaguesLatestResultData = try JSONDecoder().decode([LeaguesDetailsItem].self, from: data)
+                    complitionHandler(self.leaguesLatestResultData)
+                                       
+                 } catch {
+                     print(error)
+                     }
+
+            print(self.leaguesLatestResultData[0].dateEvent ?? "")
+            print(self.leaguesLatestResultData[1].dateEvent ?? "")
+             case .failure:
+                 print("Can not access data")
+                 complitionHandler(nil)
+                 break
+             }
+         }
+        return leaguesLatestResultData
+    }
+    
+    func fetchSLeagesDetailsUpcomingResultWithAF(endPoint: String, complitionHandler: @escaping ([LeaguesDetailsItem]?) -> Void)-> Array<LeaguesDetailsItem> {
+        
+        Alamofire.request(LeaguesDetailsUpcomingUrl, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON { (responseData) in
+             switch responseData.result{
+             case .success:
+                 let myResult = try? JSON(data: responseData.data!)
+                 let resultArray = myResult!["events"]
+                do {
+                                       
+                    let strjson = resultArray.arrayValue.description
+                    let data=Data(strjson.utf8)
+                    self.leaguesUpcomingResultData = try JSONDecoder().decode([LeaguesDetailsItem].self, from: data)
+                    complitionHandler(self.leaguesUpcomingResultData)
+                                       
+                 } catch {
+                     print(error)
+                     }
+
+            print(self.leaguesUpcomingResultData[0].dateEvent ?? "")
+            print(self.leaguesUpcomingResultData[1].dateEvent ?? "")
+             case .failure:
+                 print("Can not access data")
+                 complitionHandler(nil)
+                 break
+             }
+         }
+        return leaguesUpcomingResultData
+    }
+    
+    
+    
+   
     
     func getAllSportsFromNetwork(endPoint: String,complitionHandler: @escaping ([SportResultNeeded]?) -> Void ) {
         

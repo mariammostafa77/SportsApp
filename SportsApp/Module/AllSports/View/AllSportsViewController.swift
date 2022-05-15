@@ -20,6 +20,8 @@ class AllSportsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        
         allSportsCollectionView.dataSource = self
         allSportsCollectionView.delegate = self
         if NetworkMonitor.shared.isConnected{
@@ -31,6 +33,11 @@ class AllSportsViewController: UIViewController {
             presenter = AllSportsPresenter(networkService: SportsNetworkService())
             presenter.attachView(view: self)
             presenter.getSports1()
+            
+            
+            
+            
+            
         }
         else{
             print("You are not Connected....")

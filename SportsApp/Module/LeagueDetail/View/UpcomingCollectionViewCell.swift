@@ -9,5 +9,8 @@
 import UIKit
 
 class UpcomingCollectionViewCell: UICollectionViewCell {
-    
+    @IBOutlet weak var upcomingImg: UIImageView!
+    @IBOutlet weak var eventNameLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
 }

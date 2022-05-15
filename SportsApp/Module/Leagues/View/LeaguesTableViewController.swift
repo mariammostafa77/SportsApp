@@ -18,6 +18,7 @@ struct ResultView{
     var name : String = ""
     var image : String = ""
     var youtubeLink : String = ""
+    var id:String=""
 }
 
 class LeaguesTableViewController: UITableViewController {
@@ -87,6 +88,15 @@ class LeaguesTableViewController: UITableViewController {
         return 80
        }
    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         let vc = storyboard?.instantiateViewController(withIdentifier: "leaguesDetails") as? LeagueDetailsViewController
+        vc?.leagueItem = ResultView(name: leaguesArr[indexPath.row].name, image: leaguesArr[indexPath.row].image, youtubeLink: leaguesArr[indexPath.row].youtubeLink, id: leaguesArr[indexPath.row].id)
+        navigationController?.pushViewController(vc!, animated: true)
+        print("from raw \(leaguesArr[indexPath.row].id)")
+    
+    }
+    
+   
 
     /*
     // Override to support conditional editing of the table view.
@@ -140,12 +150,12 @@ extension LeaguesTableViewController : LeaguesTableViewProtocol {
     }
     func renderTableView(){
         leaguesArr = presenter.result.map({ (item) -> ResultView in
-            let res:ResultView = ResultView(name: item.name, image: item.image, youtubeLink: item.youtubeLink)
+            let res:ResultView = ResultView(name: item.name, image: item.image, youtubeLink: item.youtubeLink,id: item.id)
                 return res
             })
         
               if leaguesArr.count == 0 {
-               let myRes:ResultView=ResultView(name: "No Data Found !!!", image: "youtube.png", youtubeLink: "")
+               let myRes:ResultView=ResultView(name: "No Data Found !!!", image: "youtube.png", youtubeLink: "",id: "")
                leaguesArr.append(myRes)
                 
                        }
