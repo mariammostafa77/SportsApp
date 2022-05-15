@@ -8,7 +8,7 @@
 
 import UIKit
 import Kingfisher
-import CoreData
+//import CoreData
 
 
 struct UpcomingEventsResult{
@@ -35,6 +35,7 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
     let lateastIdintifier="latestCell"
     let teamsIdentifier="teamsCell"
     
+    
     var upcomingEventsArr:Array<UpcomingEventsResult>=[]
     var latestEventsArr:Array<LatestEventResult>=[]
     var teamsArr:Array<TeamsResult>=[]
@@ -42,33 +43,15 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
     var presenter : LeaguesDetailsPresenter!
     var leagueItem:ResultView=ResultView(name: "", image: "", youtubeLink: "", id: "")
     
+    var appDelegate: AppDelegate!
+    
     
     @IBOutlet weak var teamsCollectionView: UICollectionView!
-    
-   
     @IBOutlet weak var upcommingCollectionView: UICollectionView!
     @IBOutlet weak var latestResultCollectionView: UICollectionView!
     
     @IBAction func addFavBtn(_ sender: UIButton) {
-        
-        let appdelegate = UIApplication.shared.delegate as! AppDelegate
-        let viewContext = appdelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "FavouriteLeagues", in: viewContext)
-        let favleague = NSManagedObject(entity: entity!, insertInto: viewContext)
-        
-        favleague.setValue(leagueItem.id, forKey: "leagueId")
-        favleague.setValue(leagueItem.image, forKey: "leagueImg")
-        favleague.setValue(leagueItem.name, forKey: "leagueName")
-        favleague.setValue(leagueItem.youtubeLink, forKey: "youtubeLink")
-       
-       
-        do{
-            try viewContext.save()
-            print("\nsave successfully")
-        }catch let error{
-            print(error.localizedDescription)
-        }
-        
+        presenter.inserLeague(favoriteLeague: leagueItem, appDel: appDelegate)
     }
     
     @IBAction func backBtn(_ sender: UIButton) {
@@ -76,7 +59,7 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
     override func viewDidLoad() {
         super.viewDidLoad()
                
-        
+        appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
           upcommingCollectionView.delegate = self
           latestResultCollectionView.delegate = self
         teamsCollectionView.delegate = self
@@ -93,8 +76,6 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
         //upcommingCollectionView.collectionViewLayout=layout
         latestResultCollectionView.collectionViewLayout=layout
         //teamsCollectionView.collectionViewLayout=layout
-        
-        
         
         indicator.center = self.view.center
                      self.view.addSubview(indicator)
@@ -226,4 +207,6 @@ extension LeagueDetailsViewController : LeaguesTableViewProtocol {
            
     
 }
+
+
 

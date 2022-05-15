@@ -34,10 +34,6 @@ class AllSportsViewController: UIViewController {
             presenter.attachView(view: self)
             presenter.getSports1()
             
-            
-            
-            
-            
         }
         else{
             print("You are not Connected....")
@@ -85,8 +81,19 @@ extension AllSportsViewController : AllSportsProtocol {
         let res:SportResultNeeded = SportResultNeeded(sportName:item.sportName ,sportImage:item.sportImage )
             return res
         })
+        if sportArray.count == 0{
+            allSportsCollectionView.isHidden=true
+            let img = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
+            img.image=UIImage(systemName: "icloud.slash")
+            img.tintColor = .gray
+            self.view.addSubview(img)
+            let labelNoData=UILabel(frame: CGRect(x: img.frame.minX, y: img.frame.maxY+30, width: img.frame.width, height: 16))
+            labelNoData.text="No Data Found!!"
+            labelNoData.textAlignment = .center
+            self.view.addSubview(labelNoData)
+            }
        self.allSportsCollectionView.reloadData()
-        //print(sportArray[3] )
+       
     }
 }
 

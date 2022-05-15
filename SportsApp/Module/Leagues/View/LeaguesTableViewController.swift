@@ -39,11 +39,7 @@ class LeaguesTableViewController: UITableViewController {
               presenter.attachView(view: self)
               
         presenter.getItems(endPoint: sportName)
-        
-   
-        
-       
-        
+
     }
 
     // MARK: - Table view data source

@@ -15,6 +15,7 @@ class LeaguesDetailsPresenter{
         var latestResult : [LatestEventResult]=[]
         weak var view : LeaguesTableViewProtocol!  // DI
         
+    
         init(NWService : LeaguesDetailServiceProtocol){
             
         }
@@ -51,6 +52,9 @@ class LeaguesDetailsPresenter{
             self?.view.renderTableView()
                 }
             })
-            
     }
+    func inserLeague(favoriteLeague:ResultView,appDel:AppDelegate){
+        let coreData = CoreDataService(appDelegate: appDel)
+            coreData.insertLeague(leagueItem: favoriteLeague)
+        }
 }
