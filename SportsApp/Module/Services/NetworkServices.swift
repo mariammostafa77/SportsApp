@@ -63,8 +63,7 @@ class NetworkServices: AllSportsService, LeaguesNetworkServiceProtocol,LeaguesDe
                      print(error)
                      }
 
-            print(self.leaguesLatestResultData[0].dateEvent ?? "")
-            print(self.leaguesLatestResultData[1].dateEvent ?? "")
+            
              case .failure:
                  print("Can not access data")
                  complitionHandler(nil)
@@ -92,8 +91,7 @@ class NetworkServices: AllSportsService, LeaguesNetworkServiceProtocol,LeaguesDe
                      print(error)
                      }
 
-            print(self.leaguesUpcomingResultData[0].dateEvent ?? "")
-            print(self.leaguesUpcomingResultData[1].dateEvent ?? "")
+                 print("tesssst from network class \(self.leaguesUpcomingResultData[0].strSport ?? "")")
              case .failure:
                  print("Can not access data")
                  complitionHandler(nil)

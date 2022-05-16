@@ -32,9 +32,10 @@ class LeaguesDetailsPresenter{
         for i in 0...self!.allLatestResult.count-1 {
             //if(self!.allResult[i].strStatus == "Match Finished"){}
                 
-                let latestEvent=LatestEventResult(latestEventImg: self!.allLatestResult[i].strThumb ?? "", eventName: self!.allLatestResult[i].strEvent ?? "", latestDate: self!.allLatestResult[i].dateEvent ?? "", latestTime: self!.allLatestResult[i].strTime ?? "", eventScore: self!.allLatestResult[i].intScore ?? "")
-                self!.latestResult.append(latestEvent)
+                 let latestEvent=LatestEventResult(latestEventImg: self!.allLatestResult[i].strThumb ?? "", eventName: self!.allLatestResult[i].strEvent ?? "", latestDate: self!.allLatestResult[i].dateEvent ?? "", latestTime: self!.allLatestResult[i].strTime ?? "", firstTeamName: self!.allLatestResult[i].strHomeTeam ?? "",secondTeamName: self!.allLatestResult[i].strAwayTeam ?? "", firstTeamScore:self!.allLatestResult[i].intHomeScore ?? "",secondTeamScore: self!.allLatestResult[i].intAwayScore ?? "" )
             }
+            print("from presenter \(self!.allLatestResult[0].intAwayScore ?? "" )")
+
             DispatchQueue.main.async {
             self?.view.stopAnimating()
             self?.view.renderTableView()

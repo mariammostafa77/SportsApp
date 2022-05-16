@@ -22,7 +22,10 @@ struct LatestEventResult{
     var eventName:String=""
     var latestDate:String=""
     var latestTime:String=""
-    var eventScore:String=""
+    var firstTeamName=""
+    var secondTeamName=""
+    var firstTeamScore=""
+    var secondTeamScore=""
 }
 struct TeamsResult{
     var teamImg:String=""
@@ -71,12 +74,13 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
           self.view.addSubview(latestResultCollectionView)
         self.view.addSubview(teamsCollectionView)
         
-        let layout=UICollectionViewFlowLayout()
-        layout.itemSize=CGSize(width:UIScreen.main.bounds.width,height:  100)
-        //upcommingCollectionView.collectionViewLayout=layout
-        latestResultCollectionView.collectionViewLayout=layout
-        //teamsCollectionView.collectionViewLayout=layout
-        
+         let layout=UICollectionViewFlowLayout()
+              //UIScreen.main.bounds.width
+              layout.itemSize=CGSize(width:UIScreen.main.bounds.width,height:  100)
+              //upcommingCollectionView.collectionViewLayout=layout
+              latestResultCollectionView.collectionViewLayout=layout
+              //teamsCollectionView.collectionViewLayout=layout
+              
         indicator.center = self.view.center
                      self.view.addSubview(indicator)
                      indicator.startAnimating()
@@ -119,18 +123,18 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
        }
    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == upcommingCollectionView {
-            let size = UIScreen.main.bounds.width
-               return CGSize(width: size, height: 140)
-           }
-        if collectionView == latestResultCollectionView {
-            let size = UIScreen.main.bounds.width
-            return CGSize(width: size, height: 100)
-        }
-        if collectionView == teamsCollectionView {
-            let size = collectionView.frame.size.width
-            return CGSize(width: size, height: 120)
-        }
+         if collectionView == upcommingCollectionView {
+                   let size = collectionView.frame.width
+                      return CGSize(width: size, height: 140)
+                  }
+               if collectionView == latestResultCollectionView {
+                   let size = UIScreen.main.bounds.width
+                   return CGSize(width: size, height: 100)
+               }
+               if collectionView == teamsCollectionView {
+                   let size = collectionView.frame.size.width
+                   return CGSize(width: size, height: 120)
+               }
         return CGSize(width: 0, height: 0)
     }
        
@@ -158,18 +162,27 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
            }
 
            else if collectionView == latestResultCollectionView {
-            let latestCell = collectionView.dequeueReusableCell(withReuseIdentifier: lateastIdintifier, for: indexPath) as! LatestCollectionViewCell
-
-            latestCell.scoreLabel.text=latestEventsArr[indexPath.row].latestDate
-            latestCell.LatestImg.image=UIImage(named: latestEventsArr[indexPath.row].latestEventImg)
-            latestCell.dateLabel.text=latestEventsArr[indexPath.row].eventScore
-            latestCell.timeLabel.text=latestEventsArr[indexPath.row].latestTime
+             let latestCell = collectionView.dequeueReusableCell(withReuseIdentifier: lateastIdintifier, for: indexPath) as! LatestCollectionViewCell
+                      latestCell.scoreLabel.text=latestEventsArr[indexPath.row].latestDate
+                      //latestCell.LatestImg.image=UIImage(named: latestEventsArr[indexPath.row].latestEventImg)
+                      
+                      latestCell.firstTeamNameLabel.text=latestEventsArr[indexPath.row].firstTeamName
+                      latestCell.secondTeamNameLabel.text=latestEventsArr[indexPath.row].secondTeamName
+                     
+                     
+                      //latestCell.LatestImg.image=UIImage(named: "gragBg.png")
+                     
+                      let score: String = "\(latestEventsArr[indexPath.row].firstTeamScore ) - \(latestEventsArr[indexPath.row].secondTeamScore)"
+                          
+                          latestCell.dateLabel.text=score
+                      latestCell.timeLabel.text=latestEventsArr[indexPath.row].latestTime
+                      let url = URL(string: latestEventsArr[indexPath.row].latestEventImg)
+                      //latestCell.LatestImg.kf.setImage(with: url,placeholder: UIImage(named: "noData.png"))
+print("hello from latest \(latestEventsArr[indexPath.row].secondTeamScore)")
             
-            let url = URL(string: latestEventsArr[indexPath.row].latestEventImg)
-            latestCell.LatestImg.kf.setImage(with: url,placeholder: UIImage(named: "noData.png"))
-
-               return latestCell
-           
+            
+                         return latestCell
+                     
        }
        
         return teamsCell
@@ -196,7 +209,7 @@ extension LeagueDetailsViewController : LeaguesTableViewProtocol {
             })
         
         latestEventsArr = presenter.latestResult.map({ (item) -> LatestEventResult in
-            let res:LatestEventResult = LatestEventResult(latestEventImg: item.latestEventImg, eventName: item.eventName, latestDate: item.latestDate, latestTime: item.latestTime, eventScore: item.eventScore)
+           let res:LatestEventResult = LatestEventResult(latestEventImg: item.latestEventImg, eventName: item.eventName, latestDate: item.latestDate, latestTime: item.latestTime,firstTeamName: item.firstTeamName,secondTeamName: item.secondTeamName,firstTeamScore: item.firstTeamScore,secondTeamScore: item.secondTeamScore)
                 return res
             })
         self.upcommingCollectionView.reloadData()

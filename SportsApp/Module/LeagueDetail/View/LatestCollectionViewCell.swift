@@ -11,7 +11,9 @@ import UIKit
 class LatestCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var firstTeamNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var secondTeamNameLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var LatestImg: UIImageView!
 }
