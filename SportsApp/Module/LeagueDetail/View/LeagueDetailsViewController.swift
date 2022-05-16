@@ -70,7 +70,7 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
           self.view.addSubview(latestResultCollectionView)
         self.view.addSubview(teamsCollectionView)
         
-        print("Details\(strSport) && country\(leagueItem.countryName)")
+        print("Detailsssssssssssssssssssss\(strSport) && country\(leagueItem.countryName)")
         
          let layout=UICollectionViewFlowLayout()
               //UIScreen.main.bounds.width
@@ -139,9 +139,9 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
        
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == teamsCollectionView{
-           // let vc = storyboard?.instantiateViewController(withIdentifier: "teamDetails") as? TeamsDetailsViewController
-          //  vc?.teamDetauils =  teamsArr[indexPath.row]
-           // navigationController?.pushViewController(vc!, animated: true)
+            let vc = storyboard?.instantiateViewController(withIdentifier: "teamDetails") as? TeamsDetailsViewController
+            vc?.teamDetauils =  teamsArr[indexPath.row]
+            navigationController?.pushViewController(vc!, animated: true)
         }
     }
     

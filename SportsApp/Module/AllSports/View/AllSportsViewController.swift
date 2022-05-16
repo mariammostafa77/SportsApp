@@ -20,26 +20,24 @@ class AllSportsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        
         allSportsCollectionView.dataSource = self
         allSportsCollectionView.delegate = self
-        if NetworkMonitor.shared.isConnected{
+        if NetworkMonitor.shared.isConnected {
             print("You are Connected....")
             indicator.center = self.view.center
             self.view.addSubview(indicator)
             indicator.startAnimating()
-               
+    
             presenter = AllSportsPresenter(networkService: SportsNetworkService())
             presenter.attachView(view: self)
             presenter.getSports1()
-            
-          //  let service = NetworkServices()
-         ///   service.fetchTeamData()
-            
+
         }
         else{
             print("You are not Connected....")
+            let alert = UIAlertController(title: "No Internet!", message: "Please Check Internet Connection!!!!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
     }
 }

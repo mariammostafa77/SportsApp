@@ -25,7 +25,7 @@ class FavoriteTableViewCell: UITableViewCell {
         } else{
             var myUrl=favYoutubeLink
            if(myUrl == ""){
-                myUrl="/www.youtube.com/watch?v=eRrMaxAE-SY"
+                myUrl="www.youtube.com/watch?v=eRrMaxAE-SY"
             }
             youtubeUrl = NSURL(string:"https://"+myUrl)!
             UIApplication.shared.openURL(youtubeUrl as URL)

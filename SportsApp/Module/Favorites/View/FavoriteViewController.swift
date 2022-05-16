@@ -34,7 +34,7 @@ class FavoriteViewController: UIViewController {
         favoriteTableView.separatorStyle = .none
         favoriteTableView.showsVerticalScrollIndicator = false
         //////For CoreData
-        presenter = FavoritePresenter()
+      /*  presenter = FavoritePresenter()
         appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
         favLeagues = presenter.fetchFavoriteLeagues(appDelegate: appDelegate)
         ///// For No Data
@@ -66,6 +66,7 @@ class FavoriteViewController: UIViewController {
                 }
         }
         favoriteTableView.reloadData()
+ */
     }
     override func viewDidAppear(_ animated: Bool) {
         presenter = FavoritePresenter()
@@ -156,7 +157,7 @@ extension FavoriteViewController : UITableViewDelegate, UITableViewDataSource {
             vc.leagueItem = ResultView(name: favLeagues[indexPath!.row].value(forKey: "leagueName") as? String ?? "Name",
                                        image: (favLeagues[indexPath!.row].value(forKey: "leagueImg") as? String?)! ?? "",
                                        youtubeLink:  favLeagues[indexPath!.row].value(forKey: "youtubeLink") as? String ?? "",
-                                       id: favLeagues[indexPath!.row].value(forKey: "leagueId") as? String ?? "1234")
+                                       id: favLeagues[indexPath!.row].value(forKey: "leagueId") as? String ?? "1234",countryName: favLeagues[indexPath!.row].value(forKey: "countryName") as? String ?? "Spain")
         }
         else{
             print("No Internet........")

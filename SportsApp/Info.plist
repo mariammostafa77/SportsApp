@@ -62,6 +62,7 @@
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>instagram</string>
 		<string>youtube</string>
 	</array>
 	<key>LSApplicationCategoryType</key>
