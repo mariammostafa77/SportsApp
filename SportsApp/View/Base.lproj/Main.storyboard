@@ -79,7 +79,7 @@
                                             <outlet property="favLegueImageView" destination="znb-Rm-7lY" id="mRC-te-5oh"/>
                                             <outlet property="favoriteView" destination="qbX-Fg-nPr" id="AoV-jF-M3K"/>
                                             <outlet property="legueNameLabel" destination="jgQ-no-08p" id="rE1-2y-RWa"/>
-                                            <segue destination="CYe-RG-smV" kind="show" id="qrO-P3-nvt"/>
+                                            <segue destination="NTy-oE-cme" kind="show" id="GaH-q7-8iH"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -244,6 +244,7 @@
                                     <outlet property="leagueImg" destination="4nm-Om-EE4" id="gH4-e0-Ovl"/>
                                     <outlet property="leagueName" destination="CHI-3Q-Xae" id="wY7-fg-TTN"/>
                                     <outlet property="videoBtn" destination="iPu-Nr-OZD" id="hTD-w5-E1d"/>
+                                    <segue destination="NTy-oE-cme" kind="show" id="1cp-JQ-nfZ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -263,11 +264,11 @@
             <objects>
                 <viewController storyboardIdentifier="leaguesDetails" id="CYe-RG-smV" customClass="LeagueDetailsViewController" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sMd-YX-FGw">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3cg-HC-L1h">
-                                <rect key="frame" x="0.0" y="428" width="320" height="120"/>
+                                <rect key="frame" x="0.0" y="448" width="320" height="120"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="VVh-3L-SqI"/>
@@ -336,7 +337,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xzF-KK-2ix">
-                                <rect key="frame" x="0.0" y="316" width="320" height="54"/>
+                                <rect key="frame" x="0.0" y="316" width="320" height="74"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VtP-0Q-LBl">
                                     <size key="itemSize" width="386" height="148"/>
@@ -453,7 +454,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RkC-5B-rSo">
-                                <rect key="frame" x="0.0" y="380" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="400" width="320" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Teams" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOq-jc-sA3">
                                         <rect key="frame" x="10" y="8" width="300" height="24"/>
@@ -628,7 +629,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WeP-Ui-Uh2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1147.8260869565217" y="184.82142857142856"/>
+            <point key="canvasLocation" x="2783" y="-537"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hCo-ZY-Acl">
@@ -667,12 +668,12 @@
             </objects>
             <point key="canvasLocation" x="257" y="-554"/>
         </scene>
-        <!--Test View Controller-->
+        <!--League Details View Controller-->
         <scene sceneID="0q7-nJ-lBd">
             <objects>
-                <viewController id="NTy-oE-cme" customClass="TestViewController" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="NTy-oE-cme" customClass="LeagueDetailsViewController" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U3H-dT-GvX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lb3-CT-ohn">
@@ -716,10 +717,10 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u2a-Zk-Gaj">
-                                <rect key="frame" x="0.0" y="50" width="320" height="1450"/>
+                                <rect key="frame" x="0.0" y="50" width="320" height="1430"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9a-vH-mke">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1450"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1430"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TcD-Ki-Rya">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -752,7 +753,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Gt4-mh-m2b">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="upcomingCell" id="Gt4-mh-m2b" customClass="UpcomingCollectionViewCell" customModule="SportsApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="322" height="200"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ZL4-b2-zsc">
@@ -858,7 +859,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ZlN-BA-gnl">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="latestCell" id="ZlN-BA-gnl" customClass="LatestCollectionViewCell" customModule="SportsApp" customModuleProvider="target">
                                                         <rect key="frame" x="1" y="0.0" width="318" height="320"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Clp-Xw-nYh">
@@ -966,7 +967,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="kjq-3q-bnm">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="teamsCell" id="kjq-3q-bnm" customClass="TeamsCollectionViewCell" customModule="SportsApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="118" height="245"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="jCO-3t-8bp">
@@ -1075,11 +1076,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cnS-lR-Hbk"/>
                     </view>
+                    <navigationItem key="navigationItem" id="G2H-dc-zf7"/>
                     <size key="freeformSize" width="320" height="1500"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKh-7k-C6b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1818.75" y="663.38028169014081"/>
+            <point key="canvasLocation" x="1787" y="737"/>
         </scene>
         <!--Teams Details View Controller-->
         <scene sceneID="PKG-U9-7vR">
@@ -1363,4 +1365,7 @@
         <image name="youtube.png" width="368.6400146484375" height="368.6400146484375"/>
         <image name="youtubeicone.png" width="128" height="128"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="1cp-JQ-nfZ"/>
+    </inferredMetricsTieBreakers>
 </document>
