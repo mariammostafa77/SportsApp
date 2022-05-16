@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H1713" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="FavouriteLeagues" representedClassName="FavouriteLeagues" syncable="YES" codeGenerationType="class">
+        <attribute name="countryName" optional="YES" attributeType="String"/>
         <attribute name="leagueId" optional="YES" attributeType="String"/>
         <attribute name="leagueImg" optional="YES" attributeType="String"/>
         <attribute name="leagueName" optional="YES" attributeType="String"/>
         <attribute name="youtubeLink" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="FavouriteLeagues" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="FavouriteLeagues" positionX="-63" positionY="-18" width="128" height="118"/>
     </elements>
 </model>

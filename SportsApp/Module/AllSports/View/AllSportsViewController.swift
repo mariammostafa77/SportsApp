@@ -34,6 +34,9 @@ class AllSportsViewController: UIViewController {
             presenter.attachView(view: self)
             presenter.getSports1()
             
+          //  let service = NetworkServices()
+         ///   service.fetchTeamData()
+            
         }
         else{
             print("You are not Connected....")

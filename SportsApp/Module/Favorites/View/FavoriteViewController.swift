@@ -19,6 +19,10 @@ class FavoriteViewController: UIViewController {
     var favLeagueSelected: ResultView!
     var presenter : FavoritePresenter!
     var viewContext: NSManagedObjectContext!
+    
+    ///// For No Data
+    
+    
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,35 +37,69 @@ class FavoriteViewController: UIViewController {
         presenter = FavoritePresenter()
         appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
         favLeagues = presenter.fetchFavoriteLeagues(appDelegate: appDelegate)
+        ///// For No Data
+        let img = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
+        img.image=UIImage(named: "noData.png")
+        img.tintColor = .gray
+        img.tag = 100
+        let labelNoData=UILabel(frame: CGRect(x: img.frame.minX, y: img.frame.maxY+30, width: img.frame.width, height: 16))
+        labelNoData.text="No Data Found!!"
+        labelNoData.textAlignment = .center
+        labelNoData.tag = 200
+        
         if favLeagues.count==0{
-            favoriteTableView.isHidden=true
-            let img = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
-            img.image=UIImage(named: "noData.png")
-            
-            img.tintColor = .gray
+            favoriteTableView.isHidden = true
             self.view.addSubview(img)
-            let labelNoData=UILabel(frame: CGRect(x: img.frame.minX, y: img.frame.maxY+30, width: img.frame.width, height: 16))
-            labelNoData.text="No Data Found!!"
-            labelNoData.textAlignment = .center
             self.view.addSubview(labelNoData)
             }
+        else{
+            favoriteTableView.isHidden = false
+            if let viewWithTag = self.view.viewWithTag(100) {
+                    viewWithTag.removeFromSuperview()
+                }else{
+                    print("No!")
+                }
+            if let viewWithTag = self.view.viewWithTag(200) {
+                    viewWithTag.removeFromSuperview()
+                }else{
+                    print("No!")
+                }
+        }
         favoriteTableView.reloadData()
     }
     override func viewDidAppear(_ animated: Bool) {
         presenter = FavoritePresenter()
         appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
         favLeagues = presenter.fetchFavoriteLeagues(appDelegate: appDelegate)
+        
+        let img = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
+        img.image=UIImage(named: "noData.png")
+        img.tintColor = .gray
+        img.viewWithTag(100)
+        let labelNoData=UILabel(frame: CGRect(x: img.frame.minX, y: img.frame.maxY+30, width: img.frame.width, height: 16))
+        labelNoData.text="No Data Found!!"
+        labelNoData.textAlignment = .center
+        labelNoData.tag = 200
+        
         if favLeagues.count==0{
-            favoriteTableView.isHidden=true
-            let img = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
-            img.image=UIImage(named: "noData.png")
-            img.tintColor = .gray
-            self.view.addSubview(img)
-            let labelNoData=UILabel(frame: CGRect(x: img.frame.minX, y: img.frame.maxY+30, width: img.frame.width, height: 16))
-            labelNoData.text="No Data Found!!"
-            labelNoData.textAlignment = .center
-            self.view.addSubview(labelNoData)
+            favoriteTableView.isHidden = true
+            img.removeFromSuperview()
+            labelNoData.removeFromSuperview()
             }
+        else{
+            favoriteTableView.isHidden = false
+            if let viewWithTag = self.view.viewWithTag(100) {
+                    viewWithTag.removeFromSuperview()
+                }else{
+                    print("No!")
+                }
+            if let viewWithTag = self.view.viewWithTag(200) {
+                    viewWithTag.removeFromSuperview()
+                }else{
+                    print("No!")
+                }
+           
+        }
         favoriteTableView.reloadData()
     }
 
