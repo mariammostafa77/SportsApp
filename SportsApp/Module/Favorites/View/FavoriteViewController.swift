@@ -36,7 +36,8 @@ class FavoriteViewController: UIViewController {
         if favLeagues.count==0{
             favoriteTableView.isHidden=true
             let img = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
-            img.image=UIImage(systemName: "icloud.slash")
+            img.image=UIImage(named: "noData.png")
+            
             img.tintColor = .gray
             self.view.addSubview(img)
             let labelNoData=UILabel(frame: CGRect(x: img.frame.minX, y: img.frame.maxY+30, width: img.frame.width, height: 16))
@@ -45,10 +46,24 @@ class FavoriteViewController: UIViewController {
             self.view.addSubview(labelNoData)
             }
         favoriteTableView.reloadData()
-        
-       
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        presenter = FavoritePresenter()
+        appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
+        favLeagues = presenter.fetchFavoriteLeagues(appDelegate: appDelegate)
+        if favLeagues.count==0{
+            favoriteTableView.isHidden=true
+            let img = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
+            img.image=UIImage(named: "noData.png")
+            img.tintColor = .gray
+            self.view.addSubview(img)
+            let labelNoData=UILabel(frame: CGRect(x: img.frame.minX, y: img.frame.maxY+30, width: img.frame.width, height: 16))
+            labelNoData.text="No Data Found!!"
+            labelNoData.textAlignment = .center
+            self.view.addSubview(labelNoData)
+            }
+        favoriteTableView.reloadData()
+    }
 
     /*
     // MARK: - Navigation

@@ -8,9 +8,6 @@
 
 import UIKit
 import Kingfisher
-//import CoreData
-
-
 struct UpcomingEventsResult{
     var upcomingEventImg:String=""
     var eventName:String=""
@@ -47,7 +44,6 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
     var leagueItem:ResultView=ResultView(name: "", image: "", youtubeLink: "", id: "")
     
     var appDelegate: AppDelegate!
-    
     
     @IBOutlet weak var teamsCollectionView: UICollectionView!
     @IBOutlet weak var upcommingCollectionView: UICollectionView!

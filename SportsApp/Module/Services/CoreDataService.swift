@@ -51,6 +51,7 @@ class CoreDataService {
         viewContext.delete(leage)
         do {
             try viewContext.save()
+            print("Deleted.....")
         } catch let error as NSError {
             print(error.localizedDescription)
         }

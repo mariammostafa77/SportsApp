@@ -20,6 +20,7 @@ class FavoritePresenter{
 
     func deleteOneLeagueFromFav(appDelegate : AppDelegate,leage:NSManagedObject) {
         favCoreData = CoreDataService(appDelegate : appDelegate)
+        favCoreData.deleteLeagueFromFav(leage: leage)
     }
     
 }
