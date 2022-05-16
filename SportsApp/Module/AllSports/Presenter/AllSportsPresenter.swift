@@ -11,8 +11,8 @@ import Foundation
 class AllSportsPresenter{
     
    // var result : [SportItem]!
+   // weak var sportsView : AllSportsProtocol!
     weak var view : AllSportsProtocol!
-    weak var sportsView : AllSportsProtocol!
     var myFetchedData:[SportResultNeeded] = []
     let service = SportsNetworkService()
     

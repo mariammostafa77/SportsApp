@@ -19,6 +19,7 @@ struct ResultView{
     var image : String = ""
     var youtubeLink : String = ""
     var id:String=""
+    var countryName : String = ""
 }
 
 class LeaguesTableViewController: UITableViewController {
@@ -69,9 +70,6 @@ class LeaguesTableViewController: UITableViewController {
         if leaguesArr[indexPath.row].name == "No Data Found !!!" {
             cell.videoBtn.isHidden=true
         }
-        
-        
-        
         let url = URL(string: leaguesArr[indexPath.row].image)
         cell.leagueImg.kf.setImage(with: url,placeholder: UIImage(named: "noData.png"))
         //print(leaguesArr[indexPath.row].name)
@@ -86,7 +84,9 @@ class LeaguesTableViewController: UITableViewController {
    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
          let vc = storyboard?.instantiateViewController(withIdentifier: "leaguesDetails") as? LeagueDetailsViewController
-        vc?.leagueItem = ResultView(name: leaguesArr[indexPath.row].name, image: leaguesArr[indexPath.row].image, youtubeLink: leaguesArr[indexPath.row].youtubeLink, id: leaguesArr[indexPath.row].id)
+        vc?.leagueItem = ResultView(name: leaguesArr[indexPath.row].name, image: leaguesArr[indexPath.row].image, youtubeLink: leaguesArr[indexPath.row].youtubeLink, id: leaguesArr[indexPath.row].id,countryName: leaguesArr[indexPath.row].countryName)
+        print("In League Table View...\(leaguesArr[indexPath.row].countryName)")
+        vc?.strSport = sportName
         navigationController?.pushViewController(vc!, animated: true)
         print("from raw \(leaguesArr[indexPath.row].id)")
     
@@ -146,12 +146,13 @@ extension LeaguesTableViewController : LeaguesTableViewProtocol {
     }
     func renderTableView(){
         leaguesArr = presenter.result.map({ (item) -> ResultView in
-            let res:ResultView = ResultView(name: item.name, image: item.image, youtubeLink: item.youtubeLink,id: item.id)
+            let res:ResultView = ResultView(name: item.name, image: item.image, youtubeLink: item.youtubeLink,id: item.id,countryName: item.countryName)
+            print(" In Leage.....\(item.name)")
                 return res
             })
         
               if leaguesArr.count == 0 {
-               let myRes:ResultView=ResultView(name: "No Data Found !!!", image: "youtube.png", youtubeLink: "",id: "")
+               let myRes:ResultView=ResultView(name: "No Data Found !!!", image: "youtube.png", youtubeLink: "",id: "", countryName: "")
                leaguesArr.append(myRes)
                 
                        }

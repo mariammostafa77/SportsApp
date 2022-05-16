@@ -28,6 +28,7 @@ class CoreDataService {
         favleague.setValue(leagueItem.image, forKey: "leagueImg")
         favleague.setValue(leagueItem.name, forKey: "leagueName")
         favleague.setValue(leagueItem.youtubeLink, forKey: "youtubeLink")
+        favleague.setValue(leagueItem.countryName, forKey: "countryName")
         do{
             try viewContext.save()
             print("\nsave successfully")

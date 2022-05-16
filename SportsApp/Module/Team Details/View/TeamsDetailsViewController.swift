@@ -8,6 +8,23 @@
 
 import UIKit
 
+
+struct TeamData {
+    var teamName: String
+    var leagueName: String
+    var countryName: String
+    var stadiumName: String
+    var facebookLink: String
+    var instagramLink: String
+    var twitterLink: String
+    var youtubeLink: String
+    var websiteLink: String
+    var stadiumImage: String
+    var logoImage: String
+}
+
+
+
 class TeamsDetailsViewController: UIViewController {
     
     
@@ -18,8 +35,15 @@ class TeamsDetailsViewController: UIViewController {
     @IBOutlet weak var countryNameLabel: UILabel!
     @IBOutlet weak var stadiumNameLabel: UILabel!
     
+    var teamDetauils: TeamData  = TeamData(teamName: "", leagueName: "", countryName: "", stadiumName: "", facebookLink: "", instagramLink: "", twitterLink: "", youtubeLink: "", websiteLink: "", stadiumImage: <#T##String#>, logoImage: "")
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //teamNameLabel.text = teamDetauils.teamName
+        
+        
     }
     
     @IBAction func websiteBtn(_ sender: UIButton) {

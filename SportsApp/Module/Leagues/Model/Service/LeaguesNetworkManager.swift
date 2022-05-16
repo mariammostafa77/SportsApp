@@ -30,8 +30,7 @@ protocol LeaguesNetworkManagerProtocol
                      let resultArray = myResult!["countries"]
                      for i in resultArray.arrayValue {
                       
-                        var leaguesValue:ResultView=ResultView(name:i["strLeague"].stringValue, image:i["strBadge"].stringValue , youtubeLink: i["strYoutube"].stringValue,id: i["idLeague"].stringValue)
-                         
+                        var leaguesValue:ResultView=ResultView(name:i["strLeague"].stringValue, image:i["strBadge"].stringValue , youtubeLink: i["strYoutube"].stringValue,id: i["idLeague"].stringValue,countryName: i["strCountry"].stringValue)
                          self.myLeaguesData.append(leaguesValue)
                          
                      }

@@ -10,11 +10,13 @@ import Foundation
 class LeaguesDetailsPresenter{
     //var NWService : MovieService! // service
         var allUpcomingResult:[LeaguesDetailsItem]=[]
-    var allLatestResult:[LeaguesDetailsItem]=[]
+    var allLatestResult:[LeaguesDetailsItem] = []
         var upcomingResult : [UpcomingEventsResult]=[] // model
         var latestResult : [LatestEventResult]=[]
         weak var view : LeaguesTableViewProtocol!  // DI
         
+    var teamFetchedData:[TeamData] = []
+    let networkService = NetworkServices()
     
         init(NWService : LeaguesDetailServiceProtocol){
             
@@ -23,10 +25,9 @@ class LeaguesDetailsPresenter{
             self.view = view
         }
        func getItems(endPoint:String){
-             let service=NetworkServices()
+             let service = NetworkServices()
         
         service.fetchSLeagesDetailsLatestResultWithAF(endPoint : endPoint,complitionHandler: {[weak self] (result1) in
-           
              self?.allLatestResult = result1 ?? []
         print(self!.allLatestResult.count)
         for i in 0...self!.allLatestResult.count-1 {
@@ -53,7 +54,21 @@ class LeaguesDetailsPresenter{
             self?.view.renderTableView()
                 }
             })
+        
     }
+    
+    func getTeamsData(sEndPoint : String, cEndPoint: String){
+        networkService.fetchTeamData(sEndPoint: sEndPoint, cEndPoint: cEndPoint) {[weak self] (myResult) in
+            self?.teamFetchedData = myResult!
+            DispatchQueue.main.async {
+                self?.view.stopAnimating()
+                self?.view.renderTableView()
+            }
+        }
+    }
+
+    
+    
     func inserLeague(favoriteLeague:ResultView,appDel:AppDelegate){
         let coreData = CoreDataService(appDelegate: appDel)
             coreData.insertLeague(leagueItem: favoriteLeague)
