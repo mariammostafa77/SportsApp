@@ -153,7 +153,7 @@ extension FavoriteViewController : UITableViewDelegate, UITableViewDataSource {
         let indexPath = favoriteTableView.indexPathForSelectedRow
         if NetworkMonitor.shared.isConnected{
             print("You are Connected....")
-            let vc : LeagueDetailsViewController = segue.destination as! LeagueDetailsViewController
+            let vc : NewLeagueDetailsViewController = segue.destination as! NewLeagueDetailsViewController
             vc.leagueItem = ResultView(name: favLeagues[indexPath!.row].value(forKey: "leagueName") as? String ?? "Name",
                                        image: (favLeagues[indexPath!.row].value(forKey: "leagueImg") as? String?)! ?? "",
                                        youtubeLink:  favLeagues[indexPath!.row].value(forKey: "youtubeLink") as? String ?? "",
