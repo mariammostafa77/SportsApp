@@ -14,7 +14,7 @@ class AllSportsPresenter{
    // weak var sportsView : AllSportsProtocol!
     weak var view : AllSportsProtocol!
     var myFetchedData:[SportResultNeeded] = []
-    let service = SportsNetworkService()
+    let service = NetworkServices()
     
     init(networkService : SportsService){}
     

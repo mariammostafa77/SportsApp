@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 
-protocol AllSportsService{
+protocol SportsService{
   static func fetchSportResult(complitionHandler : @escaping (SportResult?) -> Void)
     func getAllSportsFromNetwork(endPoint: String, complitionHandler: @escaping ([SportResultNeeded]?) -> Void)
 }
@@ -22,14 +22,13 @@ protocol LeaguesNetworkServiceProtocol
 }
 
 protocol LeaguesDetailServiceProtocol{
-    func fetchSLeagesDetailsUpcomingResultWithAF(endPoint: String, complitionHandler: @escaping ([LeaguesDetailsItem]?) -> Void)-> Array<LeaguesDetailsItem>
-    func fetchSLeagesDetailsLatestResultWithAF(endPoint: String, complitionHandler: @escaping ([LeaguesDetailsItem]?) -> Void)-> Array<LeaguesDetailsItem>
+    func fetchSLeagesDetails(endPoint: String, complitionHandler: @escaping ([LeaguesDetailsItem]?) -> Void)-> Array<LeaguesDetailsItem>
     
     func fetchTeamData(parametrs : [String:String],complitionHandler: @escaping ([TeamData]?) -> Void)
     
 }
 
-class NetworkServices: AllSportsService, LeaguesNetworkServiceProtocol,LeaguesDetailServiceProtocol{
+class NetworkServices: SportsService, LeaguesNetworkServiceProtocol,LeaguesDetailServiceProtocol{
     
     ////Sports
        fileprivate var baseUrl = "https://www.thesportsdb.com/api/v1/json/2/"
@@ -42,14 +41,11 @@ class NetworkServices: AllSportsService, LeaguesNetworkServiceProtocol,LeaguesDe
 
        var myLeaguesData:[ResultView] = []
     
-
-    var leaguesUpcomingResultData:[LeaguesDetailsItem]=[]
-    var leaguesLatestResultData:[LeaguesDetailsItem]=[]
-    
+    var leaguesDetailsResult:[LeaguesDetailsItem]=[]
     let LeaguesDetailsLatestUrl = "https://www.thesportsdb.com/api/v1/json/2/eventsseason.php?id="
-    let LeaguesDetailsUpcomingUrl = "https://www.thesportsdb.com/api/v1/json/2/eventsround.php?id=4328&r=38&s=2021-2022"
     
-    func fetchSLeagesDetailsLatestResultWithAF(endPoint: String, complitionHandler: @escaping ([LeaguesDetailsItem]?) -> Void) -> Array<LeaguesDetailsItem> {
+    
+    func fetchSLeagesDetails(endPoint: String, complitionHandler: @escaping ([LeaguesDetailsItem]?) -> Void) -> Array<LeaguesDetailsItem> {
         Alamofire.request(LeaguesDetailsLatestUrl + endPoint, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON { (responseData) in
              switch responseData.result{
              case .success:
@@ -59,50 +55,22 @@ class NetworkServices: AllSportsService, LeaguesNetworkServiceProtocol,LeaguesDe
                                        
                     let strjson = resultArray.arrayValue.description
                     let data=Data(strjson.utf8)
-                    self.leaguesLatestResultData = try JSONDecoder().decode([LeaguesDetailsItem].self, from: data)
-                    complitionHandler(self.leaguesLatestResultData)
+                    self.leaguesDetailsResult = try JSONDecoder().decode([LeaguesDetailsItem].self, from: data)
+                    complitionHandler(self.leaguesDetailsResult)
                                        
                  } catch {
                      print(error)
                      }
-
-            
              case .failure:
                  print("Can not access data")
                  complitionHandler(nil)
                  break
              }
          }
-        return leaguesLatestResultData
+        return leaguesDetailsResult
     }
     
-    func fetchSLeagesDetailsUpcomingResultWithAF(endPoint: String, complitionHandler: @escaping ([LeaguesDetailsItem]?) -> Void)-> Array<LeaguesDetailsItem> {
-        
-        Alamofire.request(LeaguesDetailsUpcomingUrl, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON { (responseData) in
-             switch responseData.result{
-             case .success:
-                 let myResult = try? JSON(data: responseData.data!)
-                 let resultArray = myResult!["events"]
-                do {
-                                       
-                    let strjson = resultArray.arrayValue.description
-                    let data=Data(strjson.utf8)
-                    self.leaguesUpcomingResultData = try JSONDecoder().decode([LeaguesDetailsItem].self, from: data)
-                    complitionHandler(self.leaguesUpcomingResultData)
-                                       
-                 } catch {
-                     print(error)
-                     }
-
-                 print("tesssst from network class \(self.leaguesUpcomingResultData[0].strSport ?? "")")
-             case .failure:
-                 print("Can not access data")
-                 complitionHandler(nil)
-                 break
-             }
-         }
-        return leaguesUpcomingResultData
-    }
+    
     
 
     func getAllSportsFromNetwork(endPoint: String,complitionHandler: @escaping ([SportResultNeeded]?) -> Void ) {

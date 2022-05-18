@@ -10,7 +10,6 @@ import UIKit
 import Kingfisher
 
 struct UpcomingEventsResult{
-    var upcomingEventImg:String=""
     var eventName:String=""
     var upcomingDate:String=""
     var upcomingTime:String=""
@@ -32,6 +31,7 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
     @IBOutlet weak var latestCollectionView: UICollectionView!
     @IBOutlet weak var upcomingCollectionView: UICollectionView!
     
+    @IBOutlet weak var leagueNameLabel: UILabel!
     let upcomingIdentifier="upcomingCell"
     let lateastIdintifier="latestCell"
     let teamsIdentifier="teamsCell"
@@ -79,19 +79,20 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
         teamsLayout.itemSize=CGSize(width:teamsCollectionView.frame.width/2,height:  teamsCollectionView.frame.height)
             teamsLayout.scrollDirection = .horizontal
             teamsCollectionView.collectionViewLayout=teamsLayout
+        
+        leagueNameLabel.text = leagueItem.name
 
         indicator.center = self.view.center
                      self.view.addSubview(indicator)
                      indicator.startAnimating()
                      
-                     presenter = LeaguesDetailsPresenter(NWService: NetworkServices())
-        present = LeaguesDetailsPresenter(NWService: NetworkServices())
+        presenter = LeaguesDetailsPresenter(NWService:NetworkServices())
                      presenter.attachView(view: self)
                      
         presenter.getItems(endPoint: leagueItem.id)
         presenter.getTeamsData(leagueName: leagueItem.name)
        // presenter.getTeamsData(sEndPoint: strSport, cEndPoint: leagueItem.countryName)
-        
+        print("league selected id \(leagueItem.id)")
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -127,23 +128,30 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
                 }
 
                  if collectionView == latestCollectionView {
-                  let latestCell = collectionView.dequeueReusableCell(withReuseIdentifier: lateastIdintifier, for: indexPath) as! NewLatestCollectionViewCell
-                    
-                    let dateTime : String = "\(latestEventsArr[indexPath.row].latestDate) - \(latestEventsArr[indexPath.row].latestTime)"
-                    latestCell.dateTimeLabel.text=dateTime
-                                          
-                    latestCell.firstTeamNameLabel.text = latestEventsArr[indexPath.row].firstTeamName
-                    latestCell.secondTeamNameLabel.text = latestEventsArr[indexPath.row].secondTeamName
-                                         
-                                          
-                    let score: String = "\(latestEventsArr[indexPath.row].firstTeamScore ) - \(latestEventsArr[indexPath.row].secondTeamScore)"
+                       let latestCell = collectionView.dequeueReusableCell(withReuseIdentifier: lateastIdintifier, for: indexPath) as! NewLatestCollectionViewCell
+                         
+                         let dateTime : String = "\(latestEventsArr[indexPath.row].latestDate) - \(latestEventsArr[indexPath.row].latestTime)"
+                         latestCell.dateTimeLabel.text=dateTime
+                                               
+                         latestCell.firstTeamNameLabel.text = latestEventsArr[indexPath.row].firstTeamName
+                         latestCell.secondTeamNameLabel.text = latestEventsArr[indexPath.row].secondTeamName
                                               
-                    latestCell.scoreLabel.text = score
-                                          
-                    
-                    return latestCell
-                          
-            }
+                         
+                         if latestEventsArr[indexPath.row].firstTeamScore == "" {
+                             latestEventsArr[indexPath.row].firstTeamScore = "0"
+                         }
+                         if latestEventsArr[indexPath.row].secondTeamScore == "" {
+                             latestEventsArr[indexPath.row].secondTeamScore = "0"
+                         }
+                         
+                         let score: String = "\(latestEventsArr[indexPath.row].firstTeamScore ) - \(latestEventsArr[indexPath.row].secondTeamScore)"
+                                                   
+                         latestCell.scoreLabel.text = score
+                                               
+                         
+                         return latestCell
+                               
+                 }
              if collectionView == teamsCollectionView{
                  
                  let url = URL(string: teamsArr[indexPath.row].logoImage)
@@ -161,15 +169,8 @@ extension NewLeagueDetailsViewController : LeaguesTableViewProtocol {
         indicator.stopAnimating()
     }
     func renderTableView(){
-        upcomingEventsArr = presenter.upcomingResult.map({ (item) -> UpcomingEventsResult in
-            let res:UpcomingEventsResult = UpcomingEventsResult(upcomingEventImg: item.upcomingEventImg, eventName: item.eventName, upcomingDate: item.upcomingDate, upcomingTime: item.upcomingTime)
-                return res
-            })
-        
-        latestEventsArr = presenter.latestResult.map({ (item) -> LatestEventResult in
-           let res:LatestEventResult = LatestEventResult(latestEventImg: item.latestEventImg, eventName: item.eventName, latestDate: item.latestDate, latestTime: item.latestTime,firstTeamName: item.firstTeamName,secondTeamName: item.secondTeamName,firstTeamScore: item.firstTeamScore,secondTeamScore: item.secondTeamScore)
-                return res
-            })
+    upcomingEventsArr=presenter.upcomingResult
+    latestEventsArr=presenter.latestResult
         
         teamsArr = presenter.teamFetchedData.map({ (item) -> TeamData in
             let res:TeamData = TeamData(teamName: item.teamName, leagueName: item.leagueName, countryName: item.countryName, stadiumName: item.stadiumName, facebookLink: item.facebookLink, instagramLink: item.instagramLink, twitterLink: item.twitterLink, youtubeLink: item.youtubeLink, websiteLink: item.websiteLink, stadiumImage: item.stadiumImage, logoImage: item.logoImage)

@@ -9,8 +9,7 @@
 import Foundation
 class LeaguesDetailsPresenter{
     //var NWService : MovieService! // service
-        var allUpcomingResult:[LeaguesDetailsItem]=[]
-    var allLatestResult:[LeaguesDetailsItem] = []
+        var allEventsResult:[LeaguesDetailsItem]=[]
         var upcomingResult : [UpcomingEventsResult]=[] // model
         var latestResult : [LatestEventResult]=[]
         weak var view : LeaguesTableViewProtocol!  // DI
@@ -18,44 +17,41 @@ class LeaguesDetailsPresenter{
     var teamFetchedData:[TeamData] = []
     let networkService = NetworkServices()
     
-        init(NWService : LeaguesDetailServiceProtocol){
-            
-        }
+        init(NWService : LeaguesDetailServiceProtocol){}
         func attachView(view: LeaguesTableViewProtocol){
             self.view = view
         }
        func getItems(endPoint:String){
-             let service = NetworkServices()
-        
-        service.fetchSLeagesDetailsLatestResultWithAF(endPoint : endPoint,complitionHandler: {[weak self] (result1) in
-             self?.allLatestResult = result1 ?? []
-        print(self!.allLatestResult.count)
-        for i in 0...self!.allLatestResult.count-1 {
-            //if(self!.allResult[i].strStatus == "Match Finished"){}
-                
-                 let latestEvent=LatestEventResult(latestEventImg: self!.allLatestResult[i].strThumb ?? "", eventName: self!.allLatestResult[i].strEvent ?? "", latestDate: self!.allLatestResult[i].dateEvent ?? "", latestTime: self!.allLatestResult[i].strTime ?? "", firstTeamName: self!.allLatestResult[i].strHomeTeam ?? "",secondTeamName: self!.allLatestResult[i].strAwayTeam ?? "", firstTeamScore:self!.allLatestResult[i].intHomeScore ?? "",secondTeamScore: self!.allLatestResult[i].intAwayScore ?? "" )
-            }
-            print("from presenter \(self!.allLatestResult[0].intAwayScore ?? "" )")
+                let service = NetworkServices()
+           service.fetchSLeagesDetails(endPoint : endPoint,complitionHandler: {[weak self] (result1) in
+                self?.allEventsResult = result1 ?? []
 
-            DispatchQueue.main.async {
-            self?.view.stopAnimating()
-            self?.view.renderTableView()
-                }
-            })
-        
-        service.fetchSLeagesDetailsUpcomingResultWithAF(endPoint: "", complitionHandler: {[weak self] (result1) in
-                 self?.allUpcomingResult = result1 ?? []
-            for i in 0...self!.allUpcomingResult.count-1 {
-                let upcomingEvent = UpcomingEventsResult(upcomingEventImg: self!.allUpcomingResult[i].strThumb ?? "", eventName: self!.allUpcomingResult[i].strEvent ?? "", upcomingDate: self!.allUpcomingResult[i].dateEvent ?? "", upcomingTime: self!.allUpcomingResult[i].strTime ?? "")
-                self!.upcomingResult.append(upcomingEvent)
-            }
-            DispatchQueue.main.async {
-            self?.view.stopAnimating()
-            self?.view.renderTableView()
-                }
-            })
-        
-    }
+               let currentDate = Date()
+           for i in 0...self!.allEventsResult.count-1 {
+                var eventDateString = self!.allEventsResult[i].dateEvent ?? ""
+                eventDateString.append("T00:00:00+0000")
+            let eventDate=self!.formatDate(stringDate: eventDateString)
+               print("eventDate = \(eventDate)")
+               if( eventDate < currentDate){
+                   let latestEvent=LatestEventResult(latestEventImg: self!.allEventsResult[i].strThumb ?? "", eventName: self!.allEventsResult[i].strEvent ?? "", latestDate: self!.allEventsResult[i].dateEvent ?? "", latestTime: self!.allEventsResult[i].strTime ?? "", firstTeamName: self!.allEventsResult[i].strHomeTeam ?? "",secondTeamName: self!.allEventsResult[i].strAwayTeam ?? "", firstTeamScore:self!.allEventsResult[i].intHomeScore ?? "",secondTeamScore: self!.allEventsResult[i].intAwayScore ?? "" )
+                   self!.latestResult.append(latestEvent)
+               }else{
+                   let upcomingEvent=UpcomingEventsResult(eventName: self!.allEventsResult[i].strEvent ?? "", upcomingDate: self!.allEventsResult[i].dateEvent ?? "", upcomingTime: self!.allEventsResult[i].strTime ?? "")
+                   self!.upcomingResult.append(upcomingEvent)
+               }
+               }
+               print("from presenter all events = \(self!.allEventsResult.count)")
+               print("from presenter leatest = \(self!.latestResult.count)")
+               print("from presenter upcoming = \(self!.upcomingResult.count)")
+
+               DispatchQueue.main.async {
+               self?.view.stopAnimating()
+               self?.view.renderTableView()
+                   }
+               })
+           
+          
+       }
     
     func getTeamsData(leagueName : String){
         networkService.fetchTeamData(parametrs: ["l": leagueName]) {[weak self] (myResult) in
@@ -73,4 +69,12 @@ class LeaguesDetailsPresenter{
         let coreData = CoreDataService(appDelegate: appDel)
             coreData.insertLeague(leagueItem: favoriteLeague)
         }
+    func formatDate(stringDate:String) -> Date {
+           let dateFormatter = DateFormatter()
+           dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+           dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+           let myDate = dateFormatter.date(from:stringDate)!
+           
+           return myDate
+       }
 }

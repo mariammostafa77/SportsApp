@@ -10,6 +10,7 @@ import Foundation
 import Foundation
 import Alamofire
 import SwiftyJSON
+
 protocol LeaguesNetworkManagerProtocol
 {
    func fetchSLeagesResultWithAF(endPoint: String, complitionHandler: @escaping ([ResultView]?) -> Void) -> Array<ResultView>
@@ -50,5 +51,6 @@ protocol LeaguesNetworkManagerProtocol
         
     
     }
+
 
 

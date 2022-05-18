@@ -28,7 +28,7 @@ class AllSportsViewController: UIViewController {
             self.view.addSubview(indicator)
             indicator.startAnimating()
 
-            presenter = AllSportsPresenter(networkService: SportsNetworkService())
+            presenter = AllSportsPresenter(networkService: NetworkServices())
             presenter.attachView(view: self)
             presenter.getSports1()
         }
