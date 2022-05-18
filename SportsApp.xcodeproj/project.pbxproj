@@ -148,8 +148,6 @@
 			children = (
 				D540A44C283440D100C764DF /* LeaguesDetails */,
 				9FA3D3F42832A55100300E9C /* Team Details */,
-				9F48CFA4283226CA009E13E2 /* Model */,
-				9F7F4FDD282FD19E0013834A /* Services */,
 				D522053A282C1872004EE3FA /* Images */,
 				9FAC3F15282ED27D00B184C1 /* Favorites */,
 				D5220533282C0FBC004EE3FA /* Leagues */,
@@ -405,6 +403,8 @@
 		D566844E282BE7FA0089D4F0 /* SportsApp */ = {
 			isa = PBXGroup;
 			children = (
+				9F48CFA4283226CA009E13E2 /* Model */,
+				9F7F4FDD282FD19E0013834A /* Services */,
 				D5220532282C0D93004EE3FA /* View */,
 				9F091162282BF72700E78983 /* Module */,
 				D566844F282BE7FA0089D4F0 /* AppDelegate.swift */,
