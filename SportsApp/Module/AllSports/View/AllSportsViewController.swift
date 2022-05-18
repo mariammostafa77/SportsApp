@@ -27,11 +27,10 @@ class AllSportsViewController: UIViewController {
             indicator.center = self.view.center
             self.view.addSubview(indicator)
             indicator.startAnimating()
-    
+
             presenter = AllSportsPresenter(networkService: SportsNetworkService())
             presenter.attachView(view: self)
             presenter.getSports1()
-
         }
         else{
             print("You are not Connected....")

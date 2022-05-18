@@ -33,7 +33,7 @@ class TeamsDetailsViewController: UIViewController {
     @IBOutlet weak var countryNameLabel: UILabel!
     @IBOutlet weak var stadiumNameLabel: UILabel!
     
-    var teamDetauils: TeamData  = TeamData(teamName: "", leagueName: "", countryName: "", stadiumName: "", facebookLink: "", instagramLink: "", twitterLink: "", youtubeLink: "", websiteLink: "", stadiumImage: "", logoImage: "")
+    var teamDetauils: TeamData  = TeamData(teamName: "", leagueName: "", countryName: "", stadiumName: "Stadium Name", facebookLink: "", instagramLink: "", twitterLink: "", youtubeLink: "", websiteLink: "", stadiumImage: "", logoImage: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +44,8 @@ class TeamsDetailsViewController: UIViewController {
         stadiumNameLabel.text = teamDetauils.stadiumName
         let logoUrl = URL(string: teamDetauils.logoImage)
         let stadiumImgLink = URL(string: teamDetauils.stadiumImage)
-        teaLlogoImg.kf.setImage(with: logoUrl,placeholder: UIImage(named: "noData.png"))
-        stadiumImg.kf.setImage(with: stadiumImgLink,placeholder: UIImage(named: "noData.png"))
+        teaLlogoImg.kf.setImage(with: logoUrl,placeholder: UIImage(named: "defaultTeamLogo"))
+        stadiumImg.kf.setImage(with: stadiumImgLink,placeholder: UIImage(named: "stadium"))
     }
     
     @IBAction func websiteBtn(_ sender: UIButton) {

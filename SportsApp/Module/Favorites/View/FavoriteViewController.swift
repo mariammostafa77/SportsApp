@@ -73,10 +73,15 @@ class FavoriteViewController: UIViewController {
         appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
         favLeagues = presenter.fetchFavoriteLeagues(appDelegate: appDelegate)
         
+        checkTableViewIsEmptyOrNot()
+    }
+    
+    
+    func checkTableViewIsEmptyOrNot() {
         let img = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
         img.image=UIImage(named: "noData.png")
         img.tintColor = .gray
-        img.viewWithTag(100)
+        img.tag = 100
         let labelNoData=UILabel(frame: CGRect(x: img.frame.minX, y: img.frame.maxY+30, width: img.frame.width, height: 16))
         labelNoData.text="No Data Found!!"
         labelNoData.textAlignment = .center
@@ -84,8 +89,8 @@ class FavoriteViewController: UIViewController {
         
         if favLeagues.count==0{
             favoriteTableView.isHidden = true
-            img.removeFromSuperview()
-            labelNoData.removeFromSuperview()
+            self.view.addSubview(img)
+            self.view.addSubview(labelNoData)
             }
         else{
             favoriteTableView.isHidden = false
@@ -103,16 +108,7 @@ class FavoriteViewController: UIViewController {
         }
         favoriteTableView.reloadData()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
 }
 
@@ -133,7 +129,7 @@ extension FavoriteViewController : UITableViewDelegate, UITableViewDataSource {
         cell.favYoutubeLink = favLeagues[indexPath.row].value(forKey: "youtubeLink") as? String ?? ""
         /// https://www.youtube.com/watch?v=eRrMaxAE-SY
         ///////////////
-        cell.favoriteView.layer.cornerRadius = cell.favoriteView.frame.height / 1.5
+        cell.favoriteView.layer.cornerRadius = cell.favoriteView.frame.height / 2
         cell.favLegueImageView.layer.cornerRadius = cell.favLegueImageView.frame.height / 2
         cell.favLegueImageView.layer.masksToBounds = true
         
@@ -145,19 +141,22 @@ extension FavoriteViewController : UITableViewDelegate, UITableViewDataSource {
                 presenter.deleteOneLeagueFromFav(appDelegate: appDelegate, leage: favLeagues[indexPath.row])
                 favLeagues.remove(at: indexPath.row)
                 favoriteTableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+                checkTableViewIsEmptyOrNot()
             }
         }
     
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let indexPath = favoriteTableView.indexPathForSelectedRow
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
         if NetworkMonitor.shared.isConnected{
             print("You are Connected....")
-            let vc : NewLeagueDetailsViewController = segue.destination as! NewLeagueDetailsViewController
-            vc.leagueItem = ResultView(name: favLeagues[indexPath!.row].value(forKey: "leagueName") as? String ?? "Name",
-                                       image: (favLeagues[indexPath!.row].value(forKey: "leagueImg") as? String?)! ?? "",
-                                       youtubeLink:  favLeagues[indexPath!.row].value(forKey: "youtubeLink") as? String ?? "",
-                                       id: favLeagues[indexPath!.row].value(forKey: "leagueId") as? String ?? "1234",countryName: favLeagues[indexPath!.row].value(forKey: "countryName") as? String ?? "Spain")
+            let vc = storyboard?.instantiateViewController(withIdentifier: "leaguesDetail") as? NewLeagueDetailsViewController
+            vc!.leagueItem = ResultView(name: favLeagues[indexPath.row].value(forKey: "leagueName") as? String ?? "Name",
+                image: (favLeagues[indexPath.row].value(forKey: "leagueImg") as? String?)! ?? "",
+                youtubeLink: favLeagues[indexPath.row].value(forKey: "youtubeLink") as? String ?? "",
+                id: favLeagues[indexPath.row].value(forKey: "leagueId") as? String ?? "1234",countryName: favLeagues[indexPath.row].value(forKey: "countryName") as? String ?? "Spain")
+            navigationController?.pushViewController(vc!, animated: true)
         }
         else{
             print("No Internet........")
@@ -165,8 +164,9 @@ extension FavoriteViewController : UITableViewDelegate, UITableViewDataSource {
             alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
         }
-         }
-  
+
+    }
+
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100

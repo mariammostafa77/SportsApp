@@ -57,13 +57,13 @@ class LeaguesDetailsPresenter{
         
     }
     
-    func getTeamsData(sEndPoint : String, cEndPoint: String){
-        networkService.fetchTeamData(sEndPoint: sEndPoint, cEndPoint: cEndPoint) {[weak self] (myResult) in
+    func getTeamsData(leagueName : String){
+        networkService.fetchTeamData(parametrs: ["l": leagueName]) {[weak self] (myResult) in
             self?.teamFetchedData = myResult!
             DispatchQueue.main.async {
                 self?.view.stopAnimating()
                 self?.view.renderTableView()
-            }
+                }
         }
     }
 

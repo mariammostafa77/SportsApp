@@ -25,7 +25,7 @@ protocol LeaguesDetailServiceProtocol{
     func fetchSLeagesDetailsUpcomingResultWithAF(endPoint: String, complitionHandler: @escaping ([LeaguesDetailsItem]?) -> Void)-> Array<LeaguesDetailsItem>
     func fetchSLeagesDetailsLatestResultWithAF(endPoint: String, complitionHandler: @escaping ([LeaguesDetailsItem]?) -> Void)-> Array<LeaguesDetailsItem>
     
-    func fetchTeamData(sEndPoint: String, cEndPoint: String,complitionHandler: @escaping ([TeamData]?) -> Void)
+    func fetchTeamData(parametrs : [String:String],complitionHandler: @escaping ([TeamData]?) -> Void)
     
 }
 
@@ -37,7 +37,7 @@ class NetworkServices: AllSportsService, LeaguesNetworkServiceProtocol,LeaguesDe
        /////////// Leaugue
        let baseUrl1="https://www.thesportsdb.com/api/v1/json/2/search_all_leagues.php?s="
        //////////////////// Teams
-    fileprivate var teamsBaseUrl = "https://www.thesportsdb.com/api/v1/json/2/search_all_teams.php?s="
+    fileprivate var teamsBaseUrl = "https://www.thesportsdb.com/api/v1/json/2/search_all_teams.php"
     var teamData: [TeamData] = []
 
        var myLeaguesData:[ResultView] = []
@@ -158,45 +158,26 @@ class NetworkServices: AllSportsService, LeaguesNetworkServiceProtocol,LeaguesDe
          
     }
     //////////// Teams
-    ///// (self.teamsBaseUrl+sEndPoint+"&c="+cEndPoint
-    func fetchTeamData(sEndPoint: String, cEndPoint: String,complitionHandler: @escaping ([TeamData]?) -> Void) {
-        Alamofire.request(self.teamsBaseUrl+sEndPoint+"&c="+cEndPoint, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON { (responseData) in
-            switch responseData.result{
-            case .success:
-                let myResult = try? JSON(data: responseData.data!)
-                let resultArray = myResult!["teams"]
-                for i in resultArray.arrayValue {
-                    let teamResult: TeamData = TeamData(teamName: i["strTeam"].stringValue, leagueName: i["strLeague"].stringValue, countryName: i["strCountry"].stringValue, stadiumName: i["strStadium"].stringValue, facebookLink: i["strFacebook"].stringValue, instagramLink: i["strInstagram"].stringValue, twitterLink: i["strTwitter"].stringValue, youtubeLink: i["strYoutube"].stringValue, websiteLink: i["strWebsite"].stringValue, stadiumImage: i["strStadiumThumb"].stringValue, logoImage: i["strTeamBadge"].stringValue)
-                   // print("Teamsssssssssssssss: \n\(i["strTeam"])")
-                    self.teamData.append(teamResult)
+    func fetchTeamData(parametrs : [String:String],complitionHandler: @escaping ([TeamData]?) -> Void) {
+            Alamofire.request(self.teamsBaseUrl, method: .get, parameters: parametrs, encoding: URLEncoding.default, headers: nil).responseJSON { (responseData) in
+                switch responseData.result{
+                case .success:
+                    let myResult = try? JSON(data: responseData.data!)
+                    let resultArray = myResult!["teams"]
+                    for i in resultArray.arrayValue {
+                        let teamResult: TeamData = TeamData(teamName: i["strTeam"].stringValue, leagueName: i["strLeague"].stringValue, countryName: i["strCountry"].stringValue, stadiumName: i["strStadium"].stringValue, facebookLink: i["strFacebook"].stringValue, instagramLink: i["strInstagram"].stringValue, twitterLink: i["strTwitter"].stringValue, youtubeLink: i["strYoutube"].stringValue, websiteLink: i["strWebsite"].stringValue, stadiumImage: i["strStadiumThumb"].stringValue, logoImage: i["strTeamBadge"].stringValue)
+                        print("Teamsssssssssssssss: \n\(i["strTeam"])")
+                        self.teamData.append(teamResult)
+                    }
+                    complitionHandler(self.teamData)
+                   // print(" teams:   \(self.teamData[3].teamName)")
+                case .failure:
+                    print("Can not access data")
+                    complitionHandler(nil)
+                    break
                 }
-                complitionHandler(self.teamData)
-               // print(" teams:   \(self.teamData[3].teamName)")
-            case .failure:
-                print("Can not access data")
-                complitionHandler(nil)
-                break
             }
         }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

@@ -41,6 +41,7 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
     var teamsArr:Array<TeamData>=[]
     let indicator = UIActivityIndicatorView(style: .large)
     var presenter : LeaguesDetailsPresenter!
+    var present: LeaguesDetailsPresenter!
     var leagueItem:ResultView=ResultView(name: "", image: "", youtubeLink: "", id: "",countryName: "")
     var strSport: String = ""
     
@@ -48,11 +49,14 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
     }
     @IBAction func btnAddFav(_ sender: UIButton) {
         presenter.inserLeague(favoriteLeague: leagueItem, appDel: appDelegate)
+        //print("In Core Data ..\(leagueItem.name)")
     }
     override func viewDidLoad() {
         super.viewDidLoad()
 
         appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
+        
+        print("from fav \(leagueItem.name)")
         
         upcomingCollectionView.delegate = self
         upcomingCollectionView.dataSource = self
@@ -81,10 +85,12 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
                      indicator.startAnimating()
                      
                      presenter = LeaguesDetailsPresenter(NWService: NetworkServices())
+        present = LeaguesDetailsPresenter(NWService: NetworkServices())
                      presenter.attachView(view: self)
                      
         presenter.getItems(endPoint: leagueItem.id)
-        presenter.getTeamsData(sEndPoint: strSport, cEndPoint: leagueItem.countryName)
+        presenter.getTeamsData(leagueName: leagueItem.name)
+       // presenter.getTeamsData(sEndPoint: strSport, cEndPoint: leagueItem.countryName)
         
     }
     
