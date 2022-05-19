@@ -9,6 +9,18 @@
 import UIKit
 import Kingfisher
 
+
+struct AllEventResult{
+    var EventImg:String=""
+    var eventName:String=""
+    var eventDate:String=""
+    var eventTime:String=""
+    var firstTeamName=""
+    var secondTeamName=""
+    var firstTeamScore=""
+    var secondTeamScore=""
+}
+
 struct UpcomingEventsResult{
     var eventName:String=""
     var upcomingDate:String=""
@@ -36,8 +48,8 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
     let lateastIdintifier="latestCell"
     let teamsIdentifier="teamsCell"
     var appDelegate: AppDelegate!
-    var upcomingEventsArr:Array<UpcomingEventsResult>=[]
-    var latestEventsArr:Array<LatestEventResult>=[]
+    var upcomingEventsArr:Array<AllEventResult>=[]
+    var latestEventsArr:Array<AllEventResult>=[]
     var teamsArr:Array<TeamData>=[]
     let indicator = UIActivityIndicatorView(style: .large)
     var presenter : LeaguesDetailsPresenter!
@@ -88,8 +100,10 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
                      
         presenter = LeaguesDetailsPresenter(NWService:NetworkServices())
                      presenter.attachView(view: self)
-                     
-        presenter.getItems(endPoint: leagueItem.id)
+                     print("league id from view \(leagueItem.id)")
+        print("league name from view \(leagueItem.name)")
+
+        presenter.getItems(leagueId: leagueItem.id)
         presenter.getTeamsData(leagueName: leagueItem.name)
        // presenter.getTeamsData(sEndPoint: strSport, cEndPoint: leagueItem.countryName)
         print("league selected id \(leagueItem.id)")
@@ -120,9 +134,9 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
              
                 if collectionView == upcomingCollectionView {
                      let upcomingCell = upcomingCollectionView.dequeueReusableCell(withReuseIdentifier: upcomingIdentifier, for: indexPath) as! NewUpcomingCollectionViewCell
-                upcomingCell.dateLabel.text=upcomingEventsArr[indexPath.row].upcomingDate
+                upcomingCell.dateLabel.text=upcomingEventsArr[indexPath.row].eventDate
                 upcomingCell.eventNameLabel.text=upcomingEventsArr[indexPath.row].eventName
-                 upcomingCell.timeLabel.text=upcomingEventsArr[indexPath.row].upcomingTime
+                 upcomingCell.timeLabel.text=upcomingEventsArr[indexPath.row].eventTime
                  
                     return upcomingCell
                 }
@@ -130,7 +144,7 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
                  if collectionView == latestCollectionView {
                        let latestCell = collectionView.dequeueReusableCell(withReuseIdentifier: lateastIdintifier, for: indexPath) as! NewLatestCollectionViewCell
                          
-                         let dateTime : String = "\(latestEventsArr[indexPath.row].latestDate) - \(latestEventsArr[indexPath.row].latestTime)"
+                         let dateTime : String = "\(latestEventsArr[indexPath.row].eventDate) - \(latestEventsArr[indexPath.row].eventTime)"
                          latestCell.dateTimeLabel.text=dateTime
                                                
                          latestCell.firstTeamNameLabel.text = latestEventsArr[indexPath.row].firstTeamName

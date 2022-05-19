@@ -36,7 +36,7 @@ class LeaguesTableViewController: UITableViewController {
               self.view.addSubview(indicator)
               indicator.startAnimating()
               
-              presenter = LeaguesPresenter(NWService: LeaguesNetworkManager())
+              presenter = LeaguesPresenter(NWService: NetworkServices())
               presenter.attachView(view: self)
               
         presenter.getItems(endPoint: sportName)
@@ -88,7 +88,7 @@ class LeaguesTableViewController: UITableViewController {
         print("In League Table View...\(leaguesArr[indexPath.row].countryName)")
         vc?.strSport = sportName
         navigationController?.pushViewController(vc!, animated: true)
-        print("from raw \(leaguesArr[indexPath.row].id)")
+        print("from raw id \(leaguesArr[indexPath.row].id)")
     
     }
     

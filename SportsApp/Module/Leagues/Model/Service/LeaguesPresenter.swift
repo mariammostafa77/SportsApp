@@ -13,18 +13,14 @@ class LeaguesPresenter {
     var result : [ResultView]! // model
     weak var view : LeaguesTableViewProtocol!  // DI
     
-    init(NWService : LeaguesNetworkManagerProtocol){
-        //self.NWService = NWService
-        //NWService = NetworkService() // no Dependency Injection
-    }
+    init(NWService : LeaguesServiceProtocol){}
     func attachView(view: LeaguesTableViewProtocol){
         self.view = view
     }
    func getItems(endPoint:String){
-         let service=LeaguesNetworkManager()
+         let service=NetworkServices()
     service.fetchSLeagesResultWithAF(endPoint: endPoint){[weak self] (result1) in
              self?.result = result1 ?? []
-//        print("from Presenter.....\(self?.result[0].countryName)")
              DispatchQueue.main.async {
                  self?.view.stopAnimating()
                  self?.view.renderTableView()
