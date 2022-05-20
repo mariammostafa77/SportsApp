@@ -351,19 +351,19 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="287" height="109"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9C-xy-4Kp">
-                                                            <rect key="frame" x="5" y="20" width="277" height="20.5"/>
+                                                            <rect key="frame" x="5" y="5" width="277" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyj-Ll-Erw">
-                                                            <rect key="frame" x="5" y="45.5" width="277" height="21"/>
+                                                            <rect key="frame" x="5" y="30.5" width="277" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZN-EH-33T">
-                                                            <rect key="frame" x="5" y="71.5" width="277" height="21"/>
+                                                            <rect key="frame" x="5" y="56.5" width="277" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -371,7 +371,7 @@
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstItem="o9C-xy-4Kp" firstAttribute="top" secondItem="d7k-Yl-P8N" secondAttribute="top" constant="20" symbolic="YES" id="0IR-ht-wui"/>
+                                                        <constraint firstItem="o9C-xy-4Kp" firstAttribute="top" secondItem="d7k-Yl-P8N" secondAttribute="top" constant="5" id="0IR-ht-wui"/>
                                                         <constraint firstItem="dyj-Ll-Erw" firstAttribute="leading" secondItem="d7k-Yl-P8N" secondAttribute="leading" constant="5" id="2cF-Dc-eur"/>
                                                         <constraint firstItem="dyj-Ll-Erw" firstAttribute="top" secondItem="o9C-xy-4Kp" secondAttribute="bottom" constant="5" id="8r3-Y7-clN"/>
                                                         <constraint firstItem="o9C-xy-4Kp" firstAttribute="leading" secondItem="d7k-Yl-P8N" secondAttribute="leading" constant="5" id="KBk-aj-tvn"/>
@@ -608,9 +608,12 @@
                     <navigationItem key="navigationItem" id="vHN-W7-d5w"/>
                     <connections>
                         <outlet property="latestCollectionView" destination="nuy-2G-Ppm" id="2bt-ju-F9o"/>
+                        <outlet property="latestView" destination="UhP-Rl-IYU" id="0N5-ml-eog"/>
                         <outlet property="leagueNameLabel" destination="WL4-zB-Xpp" id="hFf-T6-XTG"/>
                         <outlet property="teamsCollectionView" destination="1Ok-vW-tjl" id="UHP-DC-wmW"/>
+                        <outlet property="teamsView" destination="eKZ-Ve-LGP" id="KK5-EW-uOE"/>
                         <outlet property="upcomingCollectionView" destination="4aV-tY-H1U" id="m14-NC-jv4"/>
+                        <outlet property="upcomingView" destination="7Ro-ov-KXQ" id="IiV-q6-rTd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NLo-Pt-AHk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

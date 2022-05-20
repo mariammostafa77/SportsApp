@@ -43,6 +43,9 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
     @IBOutlet weak var latestCollectionView: UICollectionView!
     @IBOutlet weak var upcomingCollectionView: UICollectionView!
     
+    @IBOutlet weak var teamsView: UIView!
+    @IBOutlet weak var latestView: UIView!
+    @IBOutlet weak var upcomingView: UIView!
     @IBOutlet weak var leagueNameLabel: UILabel!
     let upcomingIdentifier="upcomingCell"
     let lateastIdintifier="latestCell"
@@ -80,7 +83,7 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
         latestCollectionView.delegate = self
         latestCollectionView.dataSource = self
         let upcomingLayout=UICollectionViewFlowLayout()
-        upcomingLayout.itemSize=CGSize(width:upcomingCollectionView.frame.width/2,height:  upcomingCollectionView.frame.height)
+        upcomingLayout.itemSize=CGSize(width:upcomingCollectionView.frame.width,height:  upcomingCollectionView.frame.height)
             upcomingLayout.scrollDirection = .horizontal
             upcomingCollectionView.collectionViewLayout=upcomingLayout
 
@@ -94,6 +97,7 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
         
         leagueNameLabel.text = leagueItem.name
 
+        
         indicator.center = self.view.center
                      self.view.addSubview(indicator)
                      indicator.startAnimating()
@@ -177,6 +181,7 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
              return teamCell
          }
 
+  
 }
 extension NewLeagueDetailsViewController : LeaguesTableViewProtocol {
     func stopAnimating() {
@@ -186,16 +191,83 @@ extension NewLeagueDetailsViewController : LeaguesTableViewProtocol {
     upcomingEventsArr=presenter.upcomingResult
     latestEventsArr=presenter.latestResult
         
+        
         teamsArr = presenter.teamFetchedData.map({ (item) -> TeamData in
             let res:TeamData = TeamData(teamName: item.teamName, leagueName: item.leagueName, countryName: item.countryName, stadiumName: item.stadiumName, facebookLink: item.facebookLink, instagramLink: item.instagramLink, twitterLink: item.twitterLink, youtubeLink: item.youtubeLink, websiteLink: item.websiteLink, stadiumImage: item.stadiumImage, logoImage: item.logoImage)
                 return res
             })
+        handelNoData()
         self.upcomingCollectionView.reloadData()
         self.latestCollectionView.reloadData()
         self.teamsCollectionView.reloadData()
 
     }
-              
+    
+    func handelNoData(){
+         let labelNoTeams=UILabel(frame:CGRect(x:(teamsCollectionView.frame.origin.x+teamsCollectionView.frame.width/2)-75,y:teamsCollectionView.frame.origin.y+10,width:150,height:16))
+        let labelNoLatest=UILabel(frame:CGRect(x:(latestCollectionView.frame.origin.x+latestCollectionView.frame.width/2)-90,y:latestCollectionView.frame.origin.y+10,width:180,height:16))
+         let labelNoUpcoming=UILabel(frame:CGRect(x:(upcomingCollectionView.frame.origin.x+upcomingCollectionView.frame.width/2)-90,y:upcomingCollectionView.frame.origin.y+10,width:180,height:16))
+        
+        if upcomingEventsArr.count == 0 && latestEventsArr.count == 0 && teamsArr.count == 0 {
+            teamsCollectionView.isHidden=true
+            upcomingCollectionView.isHidden=true
+            latestCollectionView.isHidden=true
+            upcomingView.isHidden=true
+            latestView.isHidden=true
+            teamsView.isHidden=true
+            let imgNoData = UIImageView(frame:CGRect(x:(UIScreen.main.bounds.width/2)-40,y:300,width:80,height:80))
+                imgNoData.image=UIImage(named: "noData.png")
+                imgNoData.tintColor = .lightGray
+                let labelNoData=UILabel(frame: CGRect(x: imgNoData.frame.origin.x-20, y: imgNoData.frame.maxY+10, width:130, height: 16))
+                labelNoData.text="No Data Found!!"
+                labelNoData.textAlignment = .center
+                self.view.addSubview(imgNoData)
+                self.view.addSubview(labelNoData)
+        }else{
+            upcomingCollectionView.isHidden=false
+            latestCollectionView.isHidden=false
+            teamsCollectionView.isHidden=false
+            upcomingView.isHidden=false
+            latestView.isHidden=false
+            teamsView.isHidden=false
+            
+            if upcomingEventsArr.count == 0{
+                    upcomingCollectionView.isHidden=true
+                    labelNoUpcoming.text="No Upcoming Events!"
+                    labelNoUpcoming.textAlignment = .center
+                labelNoUpcoming.textColor = .lightGray
+                    self.view.addSubview(labelNoUpcoming)
+                }else{
+                    upcomingCollectionView.isHidden=false
+                labelNoUpcoming.isHidden=true
+                }
+                if latestEventsArr.count == 0{
+                    latestCollectionView.isHidden=true
+                    labelNoLatest.text="No Leatest Events!"
+                    labelNoLatest.textAlignment = .center
+                    labelNoLatest.textColor = .lightGray
+                    self.view.addSubview(labelNoLatest)
+                }else{
+                    upcomingCollectionView.isHidden=false
+                    labelNoLatest.isHidden=true
+                }
+                
+                if teamsArr.count == 0{
+                    teamsCollectionView.isHidden=true
+                    labelNoTeams.text="No Teams Found!!"
+                    labelNoTeams.textAlignment = .center
+                    labelNoTeams.textColor = .lightGray
+                    self.view.addSubview(labelNoTeams)
+                }else{
+                    upcomingCollectionView.isHidden=false
+                    labelNoTeams.isHidden=true
+                }
+                
+                
+            }
+        }
+        
+            
 }
 
 
