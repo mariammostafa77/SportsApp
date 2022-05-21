@@ -9,9 +9,7 @@
 import Foundation
 
 class AllSportsPresenter{
-    
-   // var result : [SportItem]!
-   // weak var sportsView : AllSportsProtocol!
+
     weak var view : AllSportsProtocol!
     var myFetchedData:[SportResultNeeded] = []
     let service = NetworkServices()
@@ -22,8 +20,8 @@ class AllSportsPresenter{
         self.view = view
     }
     
-    func getSports1(){
-        service.getAllSportsFromNetwork(endPoint: "all_sports.php") {[weak self] (myResult) in
+    func getAllSports(){
+        service.getAllSportsFromNetwork{[weak self] (myResult) in
             self?.myFetchedData = myResult!
             DispatchQueue.main.async {
                 self?.view.stopAnimating()
@@ -31,17 +29,4 @@ class AllSportsPresenter{
             }
         }
     }
-    /*
-    func getSports()  {
-        SportsNetworkService.fetchSportResult {[weak self] (result1) in
-            print(result1?.sports[2].strSport ?? "")
-            self?.result = result1?.sports
-            DispatchQueue.main.async {
-                self?.view.stopAnimating()
-                self?.view.renderCollectionView()
-        
-            }
-        }
-    }
-    */
 }

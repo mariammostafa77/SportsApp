@@ -12,7 +12,6 @@ class FavoriteTableViewCell: UITableViewCell {
 
     @IBOutlet weak var favoriteView: UIView!
     @IBOutlet weak var favLegueImageView: UIImageView!
-    
     @IBOutlet weak var legueNameLabel: UILabel!
     
     var favYoutubeLink:String = ""

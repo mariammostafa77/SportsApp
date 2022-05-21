@@ -10,35 +10,7 @@ import UIKit
 import Kingfisher
 
 
-struct AllEventResult{
-    var EventImg:String=""
-    var eventName:String=""
-    var eventDate:String=""
-    var eventTime:String=""
-    var firstTeamName=""
-    var secondTeamName=""
-    var firstTeamScore=""
-    var secondTeamScore=""
-}
-
-struct UpcomingEventsResult{
-    var eventName:String=""
-    var upcomingDate:String=""
-    var upcomingTime:String=""
-}
-struct LatestEventResult{
-    var latestEventImg:String=""
-    var eventName:String=""
-    var latestDate:String=""
-    var latestTime:String=""
-    var firstTeamName=""
-    var secondTeamName=""
-    var firstTeamScore=""
-    var secondTeamScore=""
-}
-
-
-class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
+class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var teamsCollectionView: UICollectionView!
     @IBOutlet weak var latestCollectionView: UICollectionView!
     @IBOutlet weak var upcomingCollectionView: UICollectionView!
@@ -60,18 +32,21 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
     var leagueItem:ResultView=ResultView(name: "", image: "", youtubeLink: "", id: "",countryName: "")
     var strSport: String = ""
     
+    
     @IBAction func btnBack(_ sender: UIButton) {
     }
     @IBAction func btnAddFav(_ sender: UIButton) {
+        
+        
+        
+        
         presenter.inserLeague(favoriteLeague: leagueItem, appDel: appDelegate)
-        //print("In Core Data ..\(leagueItem.name)")
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
 
         appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
-        
-        print("from fav \(leagueItem.name)")
         
         upcomingCollectionView.delegate = self
         upcomingCollectionView.dataSource = self
@@ -97,7 +72,6 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
         
         leagueNameLabel.text = leagueItem.name
 
-        
         indicator.center = self.view.center
                      self.view.addSubview(indicator)
                      indicator.startAnimating()
@@ -165,32 +139,42 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
                          let score: String = "\(latestEventsArr[indexPath.row].firstTeamScore ) - \(latestEventsArr[indexPath.row].secondTeamScore)"
                                                    
                          latestCell.scoreLabel.text = score
-                                               
-                         
                          return latestCell
                                
                  }
              if collectionView == teamsCollectionView{
-                 
+                teamCell.teamImg.layer.borderWidth = 1
+                teamCell.teamImg.layer.masksToBounds = false
+                teamCell.teamImg.layer.borderColor = UIColor.black.cgColor
+                teamCell.teamImg.layer.cornerRadius = teamCell.teamImg.frame.height/2
+                teamCell.teamImg.clipsToBounds = true
+                
                  let url = URL(string: teamsArr[indexPath.row].logoImage)
-                 teamCell.teamImg.kf.setImage(with: url,placeholder: UIImage(named: "noData.png"))
+                 teamCell.teamImg.kf.setImage(with: url,placeholder: UIImage(named: "defaultTeamLogo"))
                  teamCell.teamNameLabel.text=teamsArr[indexPath.row].teamName
+                
+                print("Facebook: \(teamsArr[indexPath.row].facebookLink)")
+                print("Instegram: \(teamsArr[indexPath.row].instagramLink)")
+                print("Website: \(teamsArr[indexPath.row].websiteLink)")
+                print("Youtube: \(teamsArr[indexPath.row].youtubeLink)")
+                print("Twitter: \(teamsArr[indexPath.row].twitterLink)")
+                
                  return teamCell
              }
-            
              return teamCell
          }
-
-  
+    
+   
+    
 }
 extension NewLeagueDetailsViewController : LeaguesTableViewProtocol {
     func stopAnimating() {
         indicator.stopAnimating()
     }
     func renderTableView(){
-    upcomingEventsArr=presenter.upcomingResult
-    latestEventsArr=presenter.latestResult
         
+        upcomingEventsArr=presenter.upcomingResult
+        latestEventsArr=presenter.latestResult
         
         teamsArr = presenter.teamFetchedData.map({ (item) -> TeamData in
             let res:TeamData = TeamData(teamName: item.teamName, leagueName: item.leagueName, countryName: item.countryName, stadiumName: item.stadiumName, facebookLink: item.facebookLink, instagramLink: item.instagramLink, twitterLink: item.twitterLink, youtubeLink: item.youtubeLink, websiteLink: item.websiteLink, stadiumImage: item.stadiumImage, logoImage: item.logoImage)

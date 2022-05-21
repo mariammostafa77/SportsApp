@@ -8,22 +8,6 @@
 
 import UIKit
 
-
-struct TeamData {
-    var teamName: String
-    var leagueName: String
-    var countryName: String
-    var stadiumName: String
-    var facebookLink: String
-    var instagramLink: String
-    var twitterLink: String
-    var youtubeLink: String
-    var websiteLink: String
-    var stadiumImage: String
-    var logoImage: String
-}
-
-
 class TeamsDetailsViewController: UIViewController {
     
     @IBOutlet weak var stadiumImg: UIImageView!
@@ -46,45 +30,50 @@ class TeamsDetailsViewController: UIViewController {
         let stadiumImgLink = URL(string: teamDetauils.stadiumImage)
         teaLlogoImg.kf.setImage(with: logoUrl,placeholder: UIImage(named: "defaultTeamLogo"))
         stadiumImg.kf.setImage(with: stadiumImgLink,placeholder: UIImage(named: "stadium"))
+        
+        print("Facebook: \(teamDetauils.facebookLink)")
+        print("Instegram: \(teamDetauils.instagramLink)")
+        print("Website: \(teamDetauils.websiteLink)")
+        print("Youtube: \(teamDetauils.youtubeLink)")
+        print("Twitter: \(teamDetauils.twitterLink)")
     }
-    
+ 
     @IBAction func websiteBtn(_ sender: UIButton) {
-        
         let websiteUrl = NSURL(string: "http://"+teamDetauils.websiteLink)
-        
         if UIApplication.shared.canOpenURL(websiteUrl! as URL) {
             UIApplication.shared.openURL(websiteUrl! as URL)
         } else {
             UIApplication.shared.openURL(NSURL(string: "http://google.com/")! as URL)
         }
     }
-    
+   
     @IBAction func facebookBtn(_ sender: UIButton) {
-        let facebookUrl = NSURL(string: "https://"+teamDetauils.facebookLink)
-        if UIApplication.shared.canOpenURL(facebookUrl! as URL) {
-            UIApplication.shared.openURL(facebookUrl! as URL)
-        } else {
-            UIApplication.shared.openURL(NSURL(string: "http://facebook.com/")! as URL)
-        }
+        let url = NSURL(string: "https://"+teamDetauils.facebookLink)
+              if UIApplication.shared.canOpenURL(url! as URL) {
+                  UIApplication.shared.openURL(url! as URL)
+              } else {
+                  UIApplication.shared.openURL(NSURL(string: "http://facebook.com/")! as URL)
+              }
     }
     
     @IBAction func instegramBtn(_ sender: Any) {
-        let instagramUrl = NSURL(string:"https://"+teamDetauils.instagramLink+"/")
-        if UIApplication.shared.canOpenURL(instagramUrl! as URL) {
-            UIApplication.shared.openURL(instagramUrl! as URL)
+        let url = NSURL(string:"https://"+teamDetauils.instagramLink+"/")
+        if UIApplication.shared.canOpenURL(url! as URL) {
+            UIApplication.shared.openURL(url! as URL)
         } else {
             UIApplication.shared.openURL(NSURL(string: "https://www.instagram.com/"
 )! as URL)
         }
+
     }
     
     @IBAction func twitterBtn(_ sender: UIButton) {
-        let twitterUrl = NSURL(string: "https://"+teamDetauils.instagramLink)
-        if UIApplication.shared.canOpenURL(twitterUrl! as URL) {
-            UIApplication.shared.openURL(twitterUrl! as URL)
-        } else {
-            UIApplication.shared.openURL(NSURL(string: "https://twitter.com/")! as URL)
-        }
+        let url = NSURL(string: "https://"+teamDetauils.twitterLink)
+               if UIApplication.shared.canOpenURL(url! as URL) {
+                   UIApplication.shared.openURL(url! as URL)
+               } else {
+                   UIApplication.shared.openURL(NSURL(string: "https://twitter.com/")! as URL)
+               }
     }
     
     @IBAction func youtubeBtn(_ sender: UIButton) {
@@ -102,15 +91,5 @@ class TeamsDetailsViewController: UIViewController {
         }
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

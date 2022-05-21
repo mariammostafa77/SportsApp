@@ -14,13 +14,7 @@ protocol LeaguesTableViewProtocol : AnyObject{
     func stopAnimating()
     func renderTableView()
 }
-struct ResultView{
-    var name : String = ""
-    var image : String = ""
-    var youtubeLink : String = ""
-    var id:String=""
-    var countryName : String = ""
-}
+
 
 class LeaguesTableViewController: UITableViewController {
 
@@ -70,8 +64,6 @@ class LeaguesTableViewController: UITableViewController {
         
         let url = URL(string: leaguesArr[indexPath.row].image)
         cell.leagueImg.kf.setImage(with: url,placeholder: UIImage(named: "noData.png"))
-        //print(leaguesArr[indexPath.row].name)
-        //cell.leagueImg.image=UIImage(named: leaguesArr[indexPath.row].image)
        
         return cell
     }

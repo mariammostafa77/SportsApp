@@ -8,7 +8,6 @@
 
 import Foundation
 class LeaguesDetailsPresenter{
-    //var NWService : MovieService! // service
         var allEventsResult:[AllEventResult]=[]
         var upcomingResult : [AllEventResult]=[] // model
         var latestResult : [AllEventResult]=[]
@@ -28,7 +27,6 @@ class LeaguesDetailsPresenter{
             print(detailsResult!)
             self?.allEventsResult = detailsResult ?? []
             print("count of all events \(self!.allEventsResult.count)")
-            
             
             let currentDate = Date()
             if(self!.allEventsResult.count != 0){
@@ -55,8 +53,7 @@ class LeaguesDetailsPresenter{
                })
        }
     
-     
-    
+     ///// Get Teams
     func getTeamsData(leagueName : String){
         networkService.fetchTeamData(parametrs: ["l": leagueName]) {[weak self] (myResult) in
             self?.teamFetchedData = myResult!
@@ -66,12 +63,28 @@ class LeaguesDetailsPresenter{
                 }
         }
     }
-
-    
     
     func inserLeague(favoriteLeague:ResultView,appDel:AppDelegate){
         let coreData = CoreDataService(appDelegate: appDel)
+        let favorite = coreData.fetchLegueData()
+        var favLeagueName = ""
+        if(favorite.count != 0){
+        for i in 0...favorite.count-1{
+            if favorite[i].value(forKey: "leagueName") as! String != favoriteLeague.name{
+                favLeagueName = favoriteLeague.name
+            }
+        }
+            if(favLeagueName != ""){
+                coreData.insertLeague(leagueItem: favoriteLeague)
+            }
+            else{
+                print("Aleardy Saved....")
+            }
+        }
+        else{
             coreData.insertLeague(leagueItem: favoriteLeague)
+        }
+        
         }
     func formatDate(stringDate:String) -> Date {
            let dateFormatter = DateFormatter()

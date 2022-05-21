@@ -22,8 +22,6 @@ class FavoriteViewController: UIViewController {
     
     ///// For No Data
     
-    
-  
     override func viewDidLoad() {
         super.viewDidLoad()
         /////// For table View
@@ -33,40 +31,7 @@ class FavoriteViewController: UIViewController {
         //////
         favoriteTableView.separatorStyle = .none
         favoriteTableView.showsVerticalScrollIndicator = false
-        //////For CoreData
-      /*  presenter = FavoritePresenter()
-        appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
-        favLeagues = presenter.fetchFavoriteLeagues(appDelegate: appDelegate)
-        ///// For No Data
-        let img = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
-        img.image=UIImage(named: "noData.png")
-        img.tintColor = .gray
-        img.tag = 100
-        let labelNoData=UILabel(frame: CGRect(x: img.frame.minX, y: img.frame.maxY+30, width: img.frame.width, height: 16))
-        labelNoData.text="No Data Found!!"
-        labelNoData.textAlignment = .center
-        labelNoData.tag = 200
-        
-        if favLeagues.count==0{
-            favoriteTableView.isHidden = true
-            self.view.addSubview(img)
-            self.view.addSubview(labelNoData)
-            }
-        else{
-            favoriteTableView.isHidden = false
-            if let viewWithTag = self.view.viewWithTag(100) {
-                    viewWithTag.removeFromSuperview()
-                }else{
-                    print("No!")
-                }
-            if let viewWithTag = self.view.viewWithTag(200) {
-                    viewWithTag.removeFromSuperview()
-                }else{
-                    print("No!")
-                }
-        }
-        favoriteTableView.reloadData()
- */
+       
     }
     override func viewDidAppear(_ animated: Bool) {
         presenter = FavoritePresenter()
@@ -74,39 +39,6 @@ class FavoriteViewController: UIViewController {
         favLeagues = presenter.fetchFavoriteLeagues(appDelegate: appDelegate)
         
         checkTableViewIsEmptyOrNot()
-    }
-    
-    
-    func checkTableViewIsEmptyOrNot() {
-        let img = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
-        img.image=UIImage(named: "noData.png")
-        img.tintColor = .gray
-        img.tag = 100
-        let labelNoData=UILabel(frame: CGRect(x: img.frame.minX, y: img.frame.maxY+30, width: img.frame.width, height: 16))
-        labelNoData.text="No Data Found!!"
-        labelNoData.textAlignment = .center
-        labelNoData.tag = 200
-        
-        if favLeagues.count==0{
-            favoriteTableView.isHidden = true
-            self.view.addSubview(img)
-            self.view.addSubview(labelNoData)
-            }
-        else{
-            favoriteTableView.isHidden = false
-            if let viewWithTag = self.view.viewWithTag(100) {
-                    viewWithTag.removeFromSuperview()
-                }else{
-                    print("No!")
-                }
-            if let viewWithTag = self.view.viewWithTag(200) {
-                    viewWithTag.removeFromSuperview()
-                }else{
-                    print("No!")
-                }
-           
-        }
-        favoriteTableView.reloadData()
     }
     
 
@@ -171,8 +103,39 @@ extension FavoriteViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-
-    
     }
 
+
+///////For check no data in fav
+extension FavoriteViewController{
+    func checkTableViewIsEmptyOrNot() {
+        let noDataImage = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
+        noDataImage.image=UIImage(named: "noData.png")
+        noDataImage.tintColor = .gray
+        noDataImage.tag = 100
+        let labelNoData=UILabel(frame: CGRect(x: noDataImage.frame.minX, y: noDataImage.frame.maxY+30, width: noDataImage.frame.width, height: 16))
+        labelNoData.text="No Data Found!!"
+        labelNoData.textAlignment = .center
+        labelNoData.tag = 200
+        
+        if favLeagues.count==0{
+            favoriteTableView.isHidden = true
+            self.view.addSubview(noDataImage)
+            self.view.addSubview(labelNoData)
+            }
+        else{
+            favoriteTableView.isHidden = false
+            if let viewWithTag = self.view.viewWithTag(100) {
+                    viewWithTag.removeFromSuperview()
+                }
+            if let viewWithTag = self.view.viewWithTag(200) {
+                    viewWithTag.removeFromSuperview()
+                }
+           
+        }
+        favoriteTableView.reloadData()
+    }
+    
+    
+}
 

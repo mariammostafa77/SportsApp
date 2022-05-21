@@ -17,8 +17,6 @@ class CoreDataService {
         viewContext = appDelegate.persistentContainer.viewContext
     }
     
-  //  (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
     ////// Save
     func insertLeague(leagueItem:ResultView){
         let leagueEntity = NSEntityDescription.entity(forEntityName: "FavouriteLeagues", in: viewContext)

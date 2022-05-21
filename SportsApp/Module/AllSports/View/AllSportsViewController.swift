@@ -22,6 +22,7 @@ class AllSportsViewController: UIViewController {
 
         allSportsCollectionView.dataSource = self
         allSportsCollectionView.delegate = self
+        
         if NetworkMonitor.shared.isConnected {
             print("You are Connected....")
             indicator.center = self.view.center
@@ -30,7 +31,7 @@ class AllSportsViewController: UIViewController {
 
             presenter = AllSportsPresenter(networkService: NetworkServices())
             presenter.attachView(view: self)
-            presenter.getSports1()
+            presenter.getAllSports()
         }
         else{
             print("You are not Connected....")
@@ -40,7 +41,6 @@ class AllSportsViewController: UIViewController {
         }
     }
 }
-
 /////////////// For Collection view method
 extension AllSportsViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
@@ -81,18 +81,32 @@ extension AllSportsViewController : AllSportsProtocol {
         let res:SportResultNeeded = SportResultNeeded(sportName:item.sportName ,sportImage:item.sportImage )
             return res
         })
+        
+        let noDataImage = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
+        noDataImage.image=UIImage(named: "noData.png")
+        noDataImage.tintColor = .gray
+        noDataImage.tag = 100
+        let labelNoData=UILabel(frame: CGRect(x: noDataImage.frame.minX, y: noDataImage.frame.maxY+30, width: noDataImage.frame.width, height: 16))
+        labelNoData.text="No Data Found!!"
+        labelNoData.textAlignment = .center
+        labelNoData.tag = 200
+        
         if sportArray.count == 0{
-            allSportsCollectionView.isHidden=true
-            let img = UIImageView(frame: CGRect(x:100,y:250,width:200,height:200))
-            img.image=UIImage(systemName: "icloud.slash")
-            img.tintColor = .gray
-            self.view.addSubview(img)
-            let labelNoData=UILabel(frame: CGRect(x: img.frame.minX, y: img.frame.maxY+30, width: img.frame.width, height: 16))
-            labelNoData.text="No Data Found!!"
-            labelNoData.textAlignment = .center
+            allSportsCollectionView.isHidden = true
+            self.view.addSubview(noDataImage)
             self.view.addSubview(labelNoData)
             }
-       self.allSportsCollectionView.reloadData()
+        else{
+            allSportsCollectionView.isHidden = false
+            if let viewWithTag = self.view.viewWithTag(100) {
+                    viewWithTag.removeFromSuperview()
+                }
+            if let viewWithTag = self.view.viewWithTag(200) {
+                    viewWithTag.removeFromSuperview()
+                }
+           
+        }
+        allSportsCollectionView.reloadData()
        
     }
 }
