@@ -75,7 +75,6 @@ class LeaguesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
          let vc = storyboard?.instantiateViewController(withIdentifier: "leaguesDetail") as? NewLeagueDetailsViewController
         vc?.leagueItem = ResultView(name: leaguesArr[indexPath.row].name, image: leaguesArr[indexPath.row].image, youtubeLink: leaguesArr[indexPath.row].youtubeLink, id: leaguesArr[indexPath.row].id,countryName: leaguesArr[indexPath.row].countryName)
-        print("In League Table View...\(leaguesArr[indexPath.row].countryName)")
         vc?.strSport = sportName
         navigationController?.pushViewController(vc!, animated: true)
         print("from raw id \(leaguesArr[indexPath.row].id)")

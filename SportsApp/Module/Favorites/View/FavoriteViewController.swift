@@ -59,11 +59,14 @@ extension FavoriteViewController : UITableViewDelegate, UITableViewDataSource {
         cell.legueNameLabel.text = favLeagues[indexPath.row].value(forKey: "leagueName") as? String
         cell.favLegueImageView.kf.setImage(with: url,placeholder: UIImage(named: "sport.jpeg"))
         cell.favYoutubeLink = favLeagues[indexPath.row].value(forKey: "youtubeLink") as? String ?? ""
-        /// https://www.youtube.com/watch?v=eRrMaxAE-SY
-        ///////////////
-        cell.favoriteView.layer.cornerRadius = cell.favoriteView.frame.height / 2
+ 
         cell.favLegueImageView.layer.cornerRadius = cell.favLegueImageView.frame.height / 2
         cell.favLegueImageView.layer.masksToBounds = true
+        cell.favLegueImageView.backgroundColor = .lightGray
+        
+        cell.favoriteView.layer.cornerRadius = cell.favoriteView.frame.height / 2
+       // cell.favLegueImageView.layer.cornerRadius = cell.favLegueImageView.frame.height / 2
+       // cell.favLegueImageView.layer.masksToBounds = true
         
         return cell
     }

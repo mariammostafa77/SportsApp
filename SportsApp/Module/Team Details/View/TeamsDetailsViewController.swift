@@ -56,13 +56,13 @@ class TeamsDetailsViewController: UIViewController {
               }
     }
     
+    
     @IBAction func instegramBtn(_ sender: Any) {
         let url = NSURL(string:"https://"+teamDetauils.instagramLink+"/")
         if UIApplication.shared.canOpenURL(url! as URL) {
             UIApplication.shared.openURL(url! as URL)
         } else {
-            UIApplication.shared.openURL(NSURL(string: "https://www.instagram.com/"
-)! as URL)
+            UIApplication.shared.openURL(NSURL(string: "https://www.instagram.com/")! as URL)
         }
 
     }

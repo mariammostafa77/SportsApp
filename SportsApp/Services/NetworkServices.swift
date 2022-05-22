@@ -17,7 +17,6 @@ class NetworkServices: SportsService, LeaguesServiceProtocol,LeaguesDetailServic
     let sportsEndPoint = "all_sports.php"
     var myData:[SportResultNeeded] = []
     //////////////////// Teams
-   
     let teamEndPoint = "search_all_teams.php"
     var teamData: [TeamData] = []
        /////////// Leaugue

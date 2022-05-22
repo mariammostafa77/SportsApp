@@ -63,7 +63,7 @@ class LeaguesDetailsPresenter{
     
     func deleteLeague(favLeagueIndex:Int,appDel:AppDelegate){
         let coreData = CoreDataService(appDelegate: appDel)
-        let favs=coreData.fetchLegueData()
+        let favs = coreData.fetchLegueData()
         coreData.deleteLeagueFromFav(leage: favs[favLeagueIndex])
     }
     
