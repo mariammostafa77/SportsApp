@@ -9,6 +9,7 @@
 import UIKit
 class LeaguesTableViewCell: UITableViewCell {
     var youtubeLink:String = ""
+    weak var viewController : UIViewController?
     @IBOutlet weak var leagueName: UILabel!
     @IBOutlet weak var leagueImg: UIImageView!
     @IBOutlet weak var videoBtn: UIButton!
@@ -19,12 +20,16 @@ class LeaguesTableViewCell: UITableViewCell {
         if UIApplication.shared.canOpenURL(youtubeUrl as URL){
             UIApplication.shared.openURL(youtubeUrl as URL)
         } else{
-            var myUrl=youtubeLink
-            if(myUrl == ""){
-                myUrl="www.youtube.com/watch?v=pt26kmLhafc"
+            let myUrl=youtubeLink
+            if(myUrl != ""){
+                youtubeUrl = NSURL(string:"https://"+myUrl)!
+                UIApplication.shared.openURL(youtubeUrl as URL)
+            }else{
+                let alert = UIAlertController(title: "Info", message: "No youtube link for this league", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                viewController?.present(alert,animated: true,completion: nil)
             }
-            youtubeUrl = NSURL(string:"https://"+myUrl)!
-            UIApplication.shared.openURL(youtubeUrl as URL)
+            
         }
         
     }
