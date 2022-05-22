@@ -21,7 +21,6 @@ class TeamsDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         teamNameLabel.text = teamDetauils.teamName
         countryNameLabel.text = teamDetauils.countryName
         leagueNameLabel.text = teamDetauils.leagueName
@@ -36,6 +35,10 @@ class TeamsDetailsViewController: UIViewController {
         print("Website: \(teamDetauils.websiteLink)")
         print("Youtube: \(teamDetauils.youtubeLink)")
         print("Twitter: \(teamDetauils.twitterLink)")
+    }
+    override func viewWillAppear(_ animated: Bool) {
+                navigationController?.setNavigationBarHidden(false, animated: false)
+
     }
  
     @IBAction func websiteBtn(_ sender: UIButton) {

@@ -35,6 +35,7 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
     var isFav : Int = -1
     
     @IBAction func btnBack(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     @IBAction func btnAddFav(_ sender: UIButton) {
         isFav=presenter.chechIfExist(favoriteLeagueId: leagueItem.id , appDel: appDelegate)
@@ -49,7 +50,8 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+          
         appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
         presenter = LeaguesDetailsPresenter(NWService:NetworkServices())
         presenter.attachView(view: self)
@@ -90,6 +92,9 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
         presenter.getTeamsData(leagueName: leagueItem.name)
        // presenter.getTeamsData(sEndPoint: strSport, cEndPoint: leagueItem.countryName)
         print("league selected id \(leagueItem.id)")
+    }
+    override func viewWillAppear(_ animated: Bool) {
+         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     override func viewDidAppear(_ animated: Bool) {
         isFav = presenter.chechIfExist(favoriteLeagueId: leagueItem.id , appDel: appDelegate)

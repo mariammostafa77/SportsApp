@@ -25,7 +25,6 @@ class LeaguesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
              indicator.center = self.view.center
               self.view.addSubview(indicator)
               indicator.startAnimating()
@@ -36,7 +35,10 @@ class LeaguesTableViewController: UITableViewController {
         presenter.getItems(endPoint: sportName)
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+                navigationController?.setNavigationBarHidden(false, animated: false)
 
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

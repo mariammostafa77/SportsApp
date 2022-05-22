@@ -33,6 +33,10 @@ class FavoriteViewController: UIViewController {
         favoriteTableView.showsVerticalScrollIndicator = false
        
     }
+   override func viewWillAppear(_ animated: Bool) {
+               navigationController?.setNavigationBarHidden(false, animated: false)
+
+   }
     override func viewDidAppear(_ animated: Bool) {
         presenter = FavoritePresenter()
         appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
@@ -64,7 +68,7 @@ extension FavoriteViewController : UITableViewDelegate, UITableViewDataSource {
         cell.favLegueImageView.layer.masksToBounds = true
         cell.favLegueImageView.backgroundColor = .lightGray
         
-        cell.favoriteView.layer.cornerRadius = cell.favoriteView.frame.height / 2
+        //cell.favoriteView.layer.cornerRadius = cell.favoriteView.frame.height / 2
        // cell.favLegueImageView.layer.cornerRadius = cell.favLegueImageView.frame.height / 2
        // cell.favLegueImageView.layer.masksToBounds = true
         

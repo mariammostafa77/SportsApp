@@ -40,6 +40,10 @@ class AllSportsViewController: UIViewController {
             present(alert, animated: true, completion: nil)
         }
     }
+   override func viewWillAppear(_ animated: Bool) {
+                navigationController?.setNavigationBarHidden(false, animated: false)
+
+    }
 }
 /////////////// For Collection view method
 extension AllSportsViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
