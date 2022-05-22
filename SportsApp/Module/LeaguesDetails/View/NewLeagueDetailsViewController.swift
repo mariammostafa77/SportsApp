@@ -15,6 +15,7 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
     @IBOutlet weak var latestCollectionView: UICollectionView!
     @IBOutlet weak var upcomingCollectionView: UICollectionView!
     
+    @IBOutlet weak var addFavBtnOutlet: UIButton!
     @IBOutlet weak var teamsView: UIView!
     @IBOutlet weak var latestView: UIView!
     @IBOutlet weak var upcomingView: UIView!
@@ -31,22 +32,27 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
     var present: LeaguesDetailsPresenter!
     var leagueItem:ResultView=ResultView(name: "", image: "", youtubeLink: "", id: "",countryName: "")
     var strSport: String = ""
-    
+    var isFav : Int = -1
     
     @IBAction func btnBack(_ sender: UIButton) {
     }
     @IBAction func btnAddFav(_ sender: UIButton) {
-        
-        
-        
-        
-        presenter.inserLeague(favoriteLeague: leagueItem, appDel: appDelegate)
-        
+        isFav=presenter.chechIfExist(favoriteLeagueId: leagueItem.id , appDel: appDelegate)
+        if isFav == -1 {
+             presenter.inserLeague(favoriteLeague: leagueItem, appDel: appDelegate)
+            addFavBtnOutlet.setImage(UIImage(named: "favourite.png"), for: .normal)
+        }else{
+            addFavBtnOutlet.setImage(UIImage(named: "FavouritUnFill.png"), for: .normal)
+            presenter.deleteLeague(favLeagueIndex: isFav, appDel: appDelegate)
+            isFav = -1
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
 
         appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
+        presenter = LeaguesDetailsPresenter(NWService:NetworkServices())
+        presenter.attachView(view: self)
         
         upcomingCollectionView.delegate = self
         upcomingCollectionView.dataSource = self
@@ -71,13 +77,12 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
             teamsCollectionView.collectionViewLayout=teamsLayout
         
         leagueNameLabel.text = leagueItem.name
-
+        
         indicator.center = self.view.center
                      self.view.addSubview(indicator)
                      indicator.startAnimating()
                      
-        presenter = LeaguesDetailsPresenter(NWService:NetworkServices())
-                     presenter.attachView(view: self)
+        
                      print("league id from view \(leagueItem.id)")
         print("league name from view \(leagueItem.name)")
 
@@ -85,6 +90,15 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
         presenter.getTeamsData(leagueName: leagueItem.name)
        // presenter.getTeamsData(sEndPoint: strSport, cEndPoint: leagueItem.countryName)
         print("league selected id \(leagueItem.id)")
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        isFav = presenter.chechIfExist(favoriteLeagueId: leagueItem.id , appDel: appDelegate)
+        print("from view is fav = \(isFav)")
+        if isFav == -1 {
+            addFavBtnOutlet.setImage(UIImage(named: "FavouritUnFill.png"), for: .normal)
+        }else{
+            addFavBtnOutlet.setImage(UIImage(named: "favourite.png"), for: .normal)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -122,12 +136,15 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
                  if collectionView == latestCollectionView {
                        let latestCell = collectionView.dequeueReusableCell(withReuseIdentifier: lateastIdintifier, for: indexPath) as! NewLatestCollectionViewCell
                          
-                         let dateTime : String = "\(latestEventsArr[indexPath.row].eventDate) - \(latestEventsArr[indexPath.row].eventTime)"
+                         let dateTime : String = "\(latestEventsArr[indexPath.row].eventDate) , \(latestEventsArr[indexPath.row].eventTime)"
                          latestCell.dateTimeLabel.text=dateTime
-                                               
+                    if(latestEventsArr[indexPath.row].firstTeamName != ""){
                          latestCell.firstTeamNameLabel.text = latestEventsArr[indexPath.row].firstTeamName
                          latestCell.secondTeamNameLabel.text = latestEventsArr[indexPath.row].secondTeamName
-                                              
+                    }else{
+                        latestCell.firstTeamNameLabel.text = "Unknown"
+                        latestCell.secondTeamNameLabel.text = "Unknown"
+                    }
                          
                          if latestEventsArr[indexPath.row].firstTeamScore == "" {
                              latestEventsArr[indexPath.row].firstTeamScore = "0"
@@ -153,11 +170,11 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
                  teamCell.teamImg.kf.setImage(with: url,placeholder: UIImage(named: "defaultTeamLogo"))
                  teamCell.teamNameLabel.text=teamsArr[indexPath.row].teamName
                 
-                print("Facebook: \(teamsArr[indexPath.row].facebookLink)")
+                /*print("Facebook: \(teamsArr[indexPath.row].facebookLink)")
                 print("Instegram: \(teamsArr[indexPath.row].instagramLink)")
                 print("Website: \(teamsArr[indexPath.row].websiteLink)")
                 print("Youtube: \(teamsArr[indexPath.row].youtubeLink)")
-                print("Twitter: \(teamsArr[indexPath.row].twitterLink)")
+                print("Twitter: \(teamsArr[indexPath.row].twitterLink)")*/
                 
                  return teamCell
              }
@@ -188,9 +205,8 @@ extension NewLeagueDetailsViewController : LeaguesTableViewProtocol {
     }
     
     func handelNoData(){
-         let labelNoTeams=UILabel(frame:CGRect(x:(teamsCollectionView.frame.origin.x+teamsCollectionView.frame.width/2)-75,y:teamsCollectionView.frame.origin.y+10,width:150,height:16))
-        let labelNoLatest=UILabel(frame:CGRect(x:(latestCollectionView.frame.origin.x+latestCollectionView.frame.width/2)-90,y:latestCollectionView.frame.origin.y+10,width:180,height:16))
-         let labelNoUpcoming=UILabel(frame:CGRect(x:(upcomingCollectionView.frame.origin.x+upcomingCollectionView.frame.width/2)-90,y:upcomingCollectionView.frame.origin.y+10,width:180,height:16))
+
+        let labelNoUpcoming=UILabel(frame:CGRect(x:(upcomingCollectionView.frame.origin.x+upcomingCollectionView.frame.width/2)-90,y:upcomingCollectionView.frame.origin.y+10,width:180,height:16))
         
         if upcomingEventsArr.count == 0 && latestEventsArr.count == 0 && teamsArr.count == 0 {
             teamsCollectionView.isHidden=true
@@ -225,28 +241,6 @@ extension NewLeagueDetailsViewController : LeaguesTableViewProtocol {
                     upcomingCollectionView.isHidden=false
                 labelNoUpcoming.isHidden=true
                 }
-                if latestEventsArr.count == 0{
-                    latestCollectionView.isHidden=true
-                    labelNoLatest.text="No Leatest Events!"
-                    labelNoLatest.textAlignment = .center
-                    labelNoLatest.textColor = .lightGray
-                    self.view.addSubview(labelNoLatest)
-                }else{
-                    upcomingCollectionView.isHidden=false
-                    labelNoLatest.isHidden=true
-                }
-                
-                if teamsArr.count == 0{
-                    teamsCollectionView.isHidden=true
-                    labelNoTeams.text="No Teams Found!!"
-                    labelNoTeams.textAlignment = .center
-                    labelNoTeams.textColor = .lightGray
-                    self.view.addSubview(labelNoTeams)
-                }else{
-                    upcomingCollectionView.isHidden=false
-                    labelNoTeams.isHidden=true
-                }
-                
                 
             }
         }

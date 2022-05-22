@@ -53,7 +53,7 @@ class NetworkServices: SportsService, LeaguesServiceProtocol,LeaguesDetailServic
         Alamofire.request(leagueUrl+endPoint, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON { (responseData) in
              switch responseData.result{
              case .success:
-                print("url \(self.leagueUrl)\(endPoint)")
+                //print("url \(self.leagueUrl)\(endPoint)")
                  let myResult = try? JSON(data: responseData.data!)
                  let resultArray = myResult!["countries"]
                  for i in resultArray.arrayValue {
@@ -91,7 +91,7 @@ class NetworkServices: SportsService, LeaguesServiceProtocol,LeaguesDetailServic
                          break
                      }
         }
-        print("From network \(leaguesDetailsResult.count)")
+        //print("From network \(leaguesDetailsResult.count)")
 
         return leaguesDetailsResult
     }

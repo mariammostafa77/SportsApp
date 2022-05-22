@@ -55,7 +55,23 @@ class CoreDataService {
             print(error.localizedDescription)
         }
     }
-    
-    
+    //Search
+    func searchIfExist(leagueItemId:String)->Int{
+        let favLeagues=fetchLegueData()
+        var isFound = -1
+        if favLeagues.count != 0{
+            for i in 0...favLeagues.count-1 {
+                let id : String = (favLeagues[i].value(forKey: "leagueId")) as! String
+                if id == leagueItemId{
+                    isFound = i
+                    break
+                }else{
+                    isFound = -1
+                }
+            }
+        }
+        return isFound
+    }
+
 }
 

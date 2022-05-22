@@ -106,7 +106,7 @@ extension LeaguesTableViewController : LeaguesTableViewProtocol {
     func renderTableView(){
         leaguesArr = presenter.result.map({ (item) -> ResultView in
             let res:ResultView = ResultView(name: item.name, image: item.image, youtubeLink: item.youtubeLink,id: item.id,countryName: item.countryName)
-            print(" In Leage.....\(item.name)")
+            //print(" In Leage.....\(item.name)")
                 return res
             })
         

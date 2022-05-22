@@ -11,7 +11,7 @@ import XCTest
 
 class NetworkServicesTest: XCTestCase {
 
-    let myService=NetworkServices()
+
     let service = NetworkServices()
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -50,10 +50,31 @@ class NetworkServicesTest: XCTestCase {
     }
     
     func testFetchSLeagesResultWithAF(){
+        let expection = expectation(description: "Waiting For the API")
+        service.fetchSLeagesResultWithAF(endPoint: "Soccer", complitionHandler:{ (items) in
+             guard let items = items else{
+                 XCTFail()
+                 expection.fulfill()
+                 return
+             }
+             XCTAssertEqual(items.count, 10,"API Faild")
+             expection.fulfill()
+        })
+        waitForExpectations(timeout: 5, handler: nil)
     }
     
-    func testFetchSLeagesDetailsTest(){
-        
+    func testFetchSLeagesDetails(){
+        let expection = expectation(description: "Waiting For the API")
+        service.fetchSLeagesDetails(endPoint: "4617", complitionHandler:{ (items) in
+             guard let items = items else{
+                 XCTFail()
+                 expection.fulfill()
+                 return
+             }
+             XCTAssertEqual(items.count, 100,"API Faild")
+             expection.fulfill()
+        })
+        waitForExpectations(timeout: 5, handler: nil)
     }
     
     

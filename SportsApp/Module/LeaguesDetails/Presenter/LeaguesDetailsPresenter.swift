@@ -24,26 +24,19 @@ class LeaguesDetailsPresenter{
     
     func getItems(leagueId : String){
         networkService.fetchSLeagesDetails(endPoint: leagueId, complitionHandler: { [weak self] (detailsResult) in
-            print(detailsResult!)
             self?.allEventsResult = detailsResult ?? []
-            print("count of all events \(self!.allEventsResult.count)")
-            
             let currentDate = Date()
             if(self!.allEventsResult.count != 0){
                     for i in 0...self!.allEventsResult.count-1 {
                          var eventDateString = self!.allEventsResult[i].eventDate
                          eventDateString.append("T00:00:00+0000")
                      let eventDate=self!.formatDate(stringDate: eventDateString)
-                        print("eventDate = \(eventDate)")
                         if( eventDate < currentDate){
                             self!.latestResult.append(self!.allEventsResult[i])
                         }else{
                             self!.upcomingResult.append(self!.allEventsResult[i])
                         }
                         }
-                        print("from presenter all events = \(self!.allEventsResult.count)")
-                        print("from presenter leatest = \(self!.latestResult.count)")
-                        print("from presenter upcoming = \(self!.upcomingResult.count)")
             }
             
                DispatchQueue.main.async {
@@ -63,29 +56,22 @@ class LeaguesDetailsPresenter{
                 }
         }
     }
+    func chechIfExist(favoriteLeagueId:String,appDel:AppDelegate)->Int{
+        let coreData = CoreDataService(appDelegate: appDel)
+        return coreData.searchIfExist(leagueItemId:favoriteLeagueId)
+    }
+    
+    func deleteLeague(favLeagueIndex:Int,appDel:AppDelegate){
+        let coreData = CoreDataService(appDelegate: appDel)
+        let favs=coreData.fetchLegueData()
+        coreData.deleteLeagueFromFav(leage: favs[favLeagueIndex])
+    }
     
     func inserLeague(favoriteLeague:ResultView,appDel:AppDelegate){
         let coreData = CoreDataService(appDelegate: appDel)
-        let favorite = coreData.fetchLegueData()
-        var favLeagueName = ""
-        if(favorite.count != 0){
-        for i in 0...favorite.count-1{
-            if favorite[i].value(forKey: "leagueName") as! String != favoriteLeague.name{
-                favLeagueName = favoriteLeague.name
-            }
-        }
-            if(favLeagueName != ""){
-                coreData.insertLeague(leagueItem: favoriteLeague)
-            }
-            else{
-                print("Aleardy Saved....")
-            }
-        }
-        else{
-            coreData.insertLeague(leagueItem: favoriteLeague)
-        }
-        
-        }
+        coreData.insertLeague(leagueItem: favoriteLeague)
+    }
+    
     func formatDate(stringDate:String) -> Date {
            let dateFormatter = DateFormatter()
            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
