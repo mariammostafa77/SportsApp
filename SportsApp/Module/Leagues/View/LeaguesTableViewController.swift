@@ -35,10 +35,7 @@ class LeaguesTableViewController: UITableViewController {
         presenter.getItems(endPoint: sportName)
 
     }
-    override func viewWillAppear(_ animated: Bool) {
-                navigationController?.setNavigationBarHidden(false, animated: false)
-
-    }
+   
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -78,9 +75,8 @@ class LeaguesTableViewController: UITableViewController {
          let vc = storyboard?.instantiateViewController(withIdentifier: "leaguesDetail") as? NewLeagueDetailsViewController
         vc?.leagueItem = ResultView(name: leaguesArr[indexPath.row].name, image: leaguesArr[indexPath.row].image, youtubeLink: leaguesArr[indexPath.row].youtubeLink, id: leaguesArr[indexPath.row].id,countryName: leaguesArr[indexPath.row].countryName)
         vc?.strSport = sportName
-        navigationController?.pushViewController(vc!, animated: true)
-        print("from raw id \(leaguesArr[indexPath.row].id)")
-    
+        present(vc!, animated: true, completion: nil)
+            
     }
     
     func handleEmptyTable(){

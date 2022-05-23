@@ -35,7 +35,8 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
     var isFav : Int = -1
     
     @IBAction func btnBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        dismiss(animated: false, completion: nil)
+        
     }
     @IBAction func btnAddFav(_ sender: UIButton) {
         isFav=presenter.chechIfExist(favoriteLeagueId: leagueItem.id , appDel: appDelegate)
@@ -93,9 +94,7 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
        // presenter.getTeamsData(sEndPoint: strSport, cEndPoint: leagueItem.countryName)
         print("league selected id \(leagueItem.id)")
     }
-    override func viewWillAppear(_ animated: Bool) {
-         navigationController?.setNavigationBarHidden(true, animated: false)
-    }
+   
     override func viewDidAppear(_ animated: Bool) {
         isFav = presenter.chechIfExist(favoriteLeagueId: leagueItem.id , appDel: appDelegate)
         print("from view is fav = \(isFav)")
@@ -122,7 +121,8 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
         if collectionView == teamsCollectionView{
             let vc = storyboard?.instantiateViewController(withIdentifier: "teamDetails") as? TeamsDetailsViewController
             vc?.teamDetauils =  teamsArr[indexPath.row]
-            navigationController?.pushViewController(vc!, animated: true)
+            present(vc!, animated: true, completion: nil)
+            //navigationController?.pushViewController(vc!, animated: true)
         }
     }
 

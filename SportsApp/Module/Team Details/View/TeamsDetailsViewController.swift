@@ -36,10 +36,7 @@ class TeamsDetailsViewController: UIViewController {
         print("Youtube: \(teamDetauils.youtubeLink)")
         print("Twitter: \(teamDetauils.twitterLink)")
     }
-    override func viewWillAppear(_ animated: Bool) {
-                navigationController?.setNavigationBarHidden(false, animated: false)
-
-    }
+   
  
     @IBAction func websiteBtn(_ sender: UIButton) {
         let websiteUrl = NSURL(string: "http://"+teamDetauils.websiteLink)

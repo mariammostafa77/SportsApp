@@ -33,10 +33,7 @@ class FavoriteViewController: UIViewController {
         favoriteTableView.showsVerticalScrollIndicator = false
        
     }
-   override func viewWillAppear(_ animated: Bool) {
-               navigationController?.setNavigationBarHidden(false, animated: false)
-
-   }
+   
     override func viewDidAppear(_ animated: Bool) {
         presenter = FavoritePresenter()
         appDelegate  = (UIApplication.shared.delegate as! AppDelegate)
@@ -95,7 +92,8 @@ extension FavoriteViewController : UITableViewDelegate, UITableViewDataSource {
                 image: (favLeagues[indexPath.row].value(forKey: "leagueImg") as? String?)! ?? "",
                 youtubeLink: favLeagues[indexPath.row].value(forKey: "youtubeLink") as? String ?? "",
                 id: favLeagues[indexPath.row].value(forKey: "leagueId") as? String ?? "1234",countryName: favLeagues[indexPath.row].value(forKey: "countryName") as? String ?? "Spain")
-            navigationController?.pushViewController(vc!, animated: true)
+            present(vc!, animated: true, completion: nil)
+
         }
         else{
             print("No Internet........")
