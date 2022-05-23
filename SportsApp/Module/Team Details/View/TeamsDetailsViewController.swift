@@ -17,14 +17,20 @@ class TeamsDetailsViewController: UIViewController {
     @IBOutlet weak var countryNameLabel: UILabel!
     @IBOutlet weak var stadiumNameLabel: UILabel!
     
-    var teamDetauils: TeamData  = TeamData(teamName: "", leagueName: "", countryName: "", stadiumName: "Stadium Name", facebookLink: "", instagramLink: "", twitterLink: "", youtubeLink: "", websiteLink: "", stadiumImage: "", logoImage: "")
+    var teamDetauils: TeamData  = TeamData(teamName: "", leagueName: "", countryName: "", stadiumName: "Stadium", facebookLink: "", instagramLink: "", twitterLink: "", youtubeLink: "", websiteLink: "", stadiumImage: "", logoImage: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         teamNameLabel.text = teamDetauils.teamName
         countryNameLabel.text = teamDetauils.countryName
         leagueNameLabel.text = teamDetauils.leagueName
-        stadiumNameLabel.text = teamDetauils.stadiumName
+        if teamDetauils.stadiumName == ""{
+            stadiumNameLabel.text = "Not Spacified.."
+        }
+        else{
+            stadiumNameLabel.text = teamDetauils.stadiumName
+        }
+        
         let logoUrl = URL(string: teamDetauils.logoImage)
         let stadiumImgLink = URL(string: teamDetauils.stadiumImage)
         teaLlogoImg.kf.setImage(with: logoUrl,placeholder: UIImage(named: "defaultTeamLogo"))
@@ -37,7 +43,11 @@ class TeamsDetailsViewController: UIViewController {
         print("Twitter: \(teamDetauils.twitterLink)")
     }
    
- 
+    @IBAction func backBtn(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     @IBAction func websiteBtn(_ sender: UIButton) {
         let websiteUrl = NSURL(string: "http://"+teamDetauils.websiteLink)
         if UIApplication.shared.canOpenURL(websiteUrl! as URL) {
