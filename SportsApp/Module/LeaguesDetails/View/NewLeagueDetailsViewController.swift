@@ -86,18 +86,14 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
                      indicator.startAnimating()
                      
         
-                     print("league id from view \(leagueItem.id)")
-        print("league name from view \(leagueItem.name)")
 
         presenter.getItems(leagueId: leagueItem.id)
         presenter.getTeamsData(leagueName: leagueItem.name)
        // presenter.getTeamsData(sEndPoint: strSport, cEndPoint: leagueItem.countryName)
-        print("league selected id \(leagueItem.id)")
     }
    
     override func viewDidAppear(_ animated: Bool) {
         isFav = presenter.chechIfExist(favoriteLeagueId: leagueItem.id , appDel: appDelegate)
-        print("from view is fav = \(isFav)")
         if isFav == -1 {
             addFavBtnOutlet.setImage(UIImage(named: "FavouritUnFill.png"), for: .normal)
         }else{
@@ -175,11 +171,7 @@ class NewLeagueDetailsViewController: UIViewController,UICollectionViewDelegate,
                  teamCell.teamImg.kf.setImage(with: url,placeholder: UIImage(named: "defaultTeamLogo"))
                  teamCell.teamNameLabel.text=teamsArr[indexPath.row].teamName
                 
-                /*print("Facebook: \(teamsArr[indexPath.row].facebookLink)")
-                print("Instegram: \(teamsArr[indexPath.row].instagramLink)")
-                print("Website: \(teamsArr[indexPath.row].websiteLink)")
-                print("Youtube: \(teamsArr[indexPath.row].youtubeLink)")
-                print("Twitter: \(teamsArr[indexPath.row].twitterLink)")*/
+            
                 
                  return teamCell
              }
